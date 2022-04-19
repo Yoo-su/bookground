@@ -11,30 +11,43 @@ interface propsType{
 function SearchInput({setBooks,setLoading}:propsType) {
     const [keyword, setKeyword]=useState('');
 
+    const onKeyPress=(e:React.KeyboardEvent<HTMLInputElement>)=>{
+      if(e.key=='Enter'){
+        search();
+      }
+    }
+
+  const search = () => {
+    if (keyword.length === 0) {
+      return
+    }
+    setBooks([]);
+    setLoading(true);
+    axios.get('/api/books', {
+      params: {
+        query: keyword,
+      }
+    }).then(res => {
+      if (res.data.success === true) {
+        setBooks(res.data.items);
+        setLoading(false);
+      }
+      else {
+        alert('오류발생');
+      }
+    })
+  }
+
     return (
         <Wrapper>
-            <CustomInput placeholder='검색어를 입력하세요. . .' onChange={(e)=>{
+            <CustomInput placeholder='검색어를 입력하세요. . .' 
+            onChange={(e)=>{
                 setKeyword(e.target.value);
-            }} />
+            }}
+            onKeyPress={onKeyPress}
+            />
             <SearchBtn onClick={()=>{
-              if (keyword.length===0){
-                return
-              }
-              setBooks([]);
-              setLoading(true);
-                 axios.get('/api/books', {
-                        params:{
-                          query:keyword,
-                        }
-                      }).then(res=>{
-                        if (res.data.success===true){
-                          setBooks(res.data.items);
-                          setLoading(false);
-                        }
-                        else{
-                          alert('오류발생');
-                        }
-                      })
+              search();
             }}>
                 <BsSearch className="searchIcon" />
             </SearchBtn>

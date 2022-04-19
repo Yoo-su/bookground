@@ -34,7 +34,11 @@ export const SearchBtn = styled.button`
     cursor:pointer;
     border-radius:50%;
     background:linear-gradient(to bottom, #4d0f28, #e39ff6);
-    transition:transform 0.1s ease-in-out;
+    
+    :active{
+        transform:scale(0.9);
+        transition:transform 0.1s ease-in-out;
+    }
 
     .searchIcon{
         width:1.5rem;
