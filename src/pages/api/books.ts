@@ -17,7 +17,8 @@ export default async function handler(
         const items = await axios.get(baseUrl, {
             params: {
                 query: query,
-                display: 30
+                sort:'count',
+                display:100
             },
             headers: {
                 'X-Naver-Client-Id': process.env.ID_KEY || '',
