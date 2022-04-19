@@ -11,7 +11,6 @@ border:none;
 width:40%;
 height:3rem;
 transition:transform 0.1s linear;
-margin-bottom:2rem;
 
 :focus{
     transform:scale(1.1);

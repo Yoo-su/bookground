@@ -4,10 +4,11 @@ import { BsSearch } from 'react-icons/bs';
 import axios from 'axios';
 
 interface propsType{
-    setBooks:any
+    setBooks:any,
+    setLoading:any
 }
 
-function SearchInput({setBooks}:propsType) {
+function SearchInput({setBooks,setLoading}:propsType) {
     const [keyword, setKeyword]=useState('');
 
     return (
@@ -16,6 +17,11 @@ function SearchInput({setBooks}:propsType) {
                 setKeyword(e.target.value);
             }} />
             <SearchBtn onClick={()=>{
+              if (keyword.length===0){
+                return
+              }
+              setBooks([]);
+              setLoading(true);
                  axios.get('/api/books', {
                         params:{
                           query:keyword,
@@ -23,7 +29,7 @@ function SearchInput({setBooks}:propsType) {
                       }).then(res=>{
                         if (res.data.success===true){
                           setBooks(res.data.items);
-                          console.log(res.data.items)
+                          setLoading(false);
                         }
                         else{
                           alert('오류발생');
