@@ -6,6 +6,7 @@ interface propsType{
 
 export const Wrapper=styled.div<propsType>`
     display:flex;
+    position:relative;
     flex-direction:column;
     align-items:center;
     justify-content:center;
@@ -13,14 +14,15 @@ export const Wrapper=styled.div<propsType>`
     height:22rem;
     margin:1rem 1.5rem;
     font-family: 'IBM Plex Sans KR', sans-serif;
-    cursor:pointer;
-    box-shadow:0 2px 2px rgba(0,0,0,0.3);
+    box-shadow:0 1px 5px rgba(0,0,0,0.3);
     border-radius:0.5rem;
-    background:rgba(250,253,246);
+    background:rgba(250,253,246,1);
     overflow:hidden;
-    opacity:${props=>props.hovered===true?'0.8':'1'};
-    transition:opacity 0.2s linear;
     
+    .bookCover, .bookInfo{
+        opacity:${props=>props.hovered===true?'0.5':'1'};
+        transition:opacity 0.2s linear;
+    }
 
     .bookCover{
         width:100%;
@@ -49,6 +51,33 @@ export const Wrapper=styled.div<propsType>`
 
         label{
             font-size:8px;
+        }
+    }
+
+    .toDetailBtn *{
+        cursor:pointer;
+    }
+
+    .toDetailBtn{
+        display:flex;
+        position:absolute;
+        top:25%;
+        left:28%;
+        visibility:${props=>props.hovered===true?'visible':'hidden'};
+        align-items:center;
+        justify-content:center;
+        padding:0.2rem 0.3rem;
+        border:none;
+        border-radius:0.2rem;
+        background:black;
+        color:white;
+        font-size:16px;
+        font-family: 'IBM Plex Sans KR', sans-serif;
+
+        .toDetailIcon{
+            width:1.3rem;
+            height:1.3rem;
+            margin-right:0.2rem;
         }
     }
 `;
