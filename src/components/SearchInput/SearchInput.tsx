@@ -1,21 +1,21 @@
-import React, {useState,memo} from 'react'
+import React, { useState, memo } from 'react'
 import { Wrapper, CustomInput, SearchBtn } from './styles'
 import { BsSearch } from 'react-icons/bs';
 import axios from 'axios';
 
-interface propsType{
-    setBooks:any,
-    setLoading:any
+interface propsType {
+  setBooks: any,
+  setLoading: any
 }
 
-function SearchInput({setBooks,setLoading}:propsType) {
-    const [keyword, setKeyword]=useState('');
+function SearchInput({ setBooks, setLoading }: propsType) {
+  const [keyword, setKeyword] = useState('');
 
-    const onKeyPress=(e:React.KeyboardEvent<HTMLInputElement>)=>{
-      if(e.key=='Enter'){
-        search();
-      }
+  const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == 'Enter') {
+      search();
     }
+  }
 
   const search = () => {
     if (keyword.length === 0) {
@@ -38,21 +38,21 @@ function SearchInput({setBooks,setLoading}:propsType) {
     })
   }
 
-    return (
-        <Wrapper>
-            <CustomInput placeholder='검색어를 입력하세요. . .' 
-            onChange={(e)=>{
-                setKeyword(e.target.value);
-            }}
-            onKeyPress={onKeyPress}
-            />
-            <SearchBtn onClick={()=>{
-              search();
-            }}>
-                <BsSearch className="searchIcon" />
-            </SearchBtn>
-        </Wrapper>
-    )
+  return (
+    <Wrapper>
+      <CustomInput placeholder='검색어를 입력하세요. . .'
+        onChange={(e) => {
+          setKeyword(e.target.value);
+        }}
+        onKeyPress={onKeyPress}
+      />
+      <SearchBtn onClick={() => {
+        search();
+      }}>
+        <BsSearch className="searchIcon" />
+      </SearchBtn>
+    </Wrapper>
+  )
 }
 
 export default memo(SearchInput);

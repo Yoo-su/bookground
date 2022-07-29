@@ -8,10 +8,13 @@ interface propsType{
 export default function AppLayout({children}:propsType) {
   return (
     <div>
-        <Navbar />
+        <header>
+          <Navbar />
+        </header>
         <main>
             {children}
         </main>
+        <footer></footer>
     </div>
   )
 }
