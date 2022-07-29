@@ -1,6 +1,7 @@
 import React,{useState,memo} from 'react'
 import {Wrapper} from './styles';
 import { HiOutlineDocumentSearch } from 'react-icons/hi';
+import { useRouter } from 'next/router'
 
 interface propsType{
     title:string,
@@ -15,24 +16,32 @@ interface propsType{
     description:string
 }
 
-function Book({title,link,image,author,price,discount,publisher,pubdate,isbn,description}:propsType) {
+function Book({title,link,image,author,publisher,pubdate,isbn,description}:propsType) {
   const [hovered, setHovered]=useState(false);
+  
+  const router=useRouter();
 
-  const refinedImageUrl=image.substr(0,image.indexOf("?type"));
   const refinedTitle= title.replace(/(<([^>]+)>)/gi, "");
   const refinedAuthor= author.replace(/(<([^>]+)>)/gi, "");
+  const refinedPublisher=publisher.replace(/(<([^>]+)>)/gi, "");
+  const refinedDesc=description.replace(/(<([^>]+)>)/gi, "");
+
   return (
     <Wrapper onMouseEnter={()=>{setHovered(true)}} onMouseLeave={()=>{setHovered(false)}} hovered={hovered}>
       <div className="bookCover">
-        <img className='coverImg' src={refinedImageUrl} loading="lazy" />
+        <img className='coverImg' src={image} alt={image} loading="lazy" />
       </div>
-      
       <div className="bookInfo">
-        <b>제목: {refinedTitle}</b>
+        <b>{refinedTitle}</b>
         <label>저자: {refinedAuthor}</label>
       </div>
 
-      <button className='toDetailBtn'>
+      <button className='toDetailBtn' onClick={()=>{
+        router.push({
+          pathname: `/BookDetail/${isbn}`,
+          query: { isbn },
+        })
+      }}>
         <HiOutlineDocumentSearch className='toDetailIcon'/>
         <label>상세보기</label>
         </button>

@@ -12,7 +12,7 @@ export const Wrapper=styled.div<propsType>`
     justify-content:center;
     width:12rem;
     height:22rem;
-    margin:1rem 1.5rem;
+    margin:1rem 2rem;
     font-family: 'IBM Plex Sans KR', sans-serif;
     box-shadow:0 1px 5px rgba(0,0,0,0.3);
     border-radius:0.5rem;

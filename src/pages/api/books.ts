@@ -17,7 +17,6 @@ export default async function handler(
         const items = await axios.get(baseUrl, {
             params: {
                 query: query,
-                sort:'count',
                 display:100
             },
             headers: {
