@@ -62,7 +62,8 @@ export default async function handler(
               ]).toArray();
         }
    
-        const isEstimated = await bookRep.find({isbn:isbn,_id:curUser}).toArray();
+        //유저가 좋아요 또는 별로에요를 눌렀는지 확인
+        const isEstimated = await bookRep.find({isbn:isbn,email:curUser}).toArray();
         let userThumb=null;
         if (isEstimated.length>0) {
             userThumb=isEstimated[0].thumb;
