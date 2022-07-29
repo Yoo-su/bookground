@@ -24,6 +24,7 @@ export default function LoginUserChip({ profileImg, name }: userChipType) {
                 label={name}
                 clickable
                 onClick={handleClick}
+                color="info"
             />
             <Menu
                 id="basic-menu"
