@@ -21,8 +21,11 @@
     "baseUrl": ".",
     "paths":{
       "@components/*":["src/components/*"],
+      "@hooks/*":["src/hooks/*"],
       "@types/*":["src/types/*"],
       "@styles/*":["src/styles/*"],
+      "@utils/*":["src/utils/*"],
+      "@api/*":["src/lib/api/*"],
     }
   },
   "include": [
