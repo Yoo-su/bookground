@@ -68,7 +68,7 @@ export default function Board({ isbn, data, status }: boardType) {
                 <div className="inputField">
                     <div className="rating">
                         <Avatar src={data?.user?.image} sx={{ width: 56, height: 56 }} />
-                        <Rating precision={0.5} value={rate}
+                        <Rating precision={0.5} value={rate} readOnly={status==='unauthenticated'?true:false}
                             onChange={(event, newValue) => {
                                 setRate(newValue);
                             }} />
