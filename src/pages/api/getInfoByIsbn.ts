@@ -48,7 +48,7 @@ export default async function handler(
                 { $match: { 
                     "isbn":isbn,
                     "rate":{
-                        $ne: !-1 
+                        $ne: -1 
                     }
                 } },
                 {

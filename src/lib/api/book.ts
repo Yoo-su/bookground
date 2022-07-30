@@ -1,5 +1,16 @@
 import axios from 'axios';
 
+//검색어로 책 검색
+export const getBooks = (query: string) => {
+  return axios.get('/api/books', {
+    params: {
+      query: query,
+    }
+  }
+  )
+}
+
+
 //isbn값으로 책 관련 정보 조회
 export const getInfoByIsbn=(isbn:string, curUser:string|null|undefined=null)=>{
     return axios.get('/api/getInfoByIsbn',{
@@ -40,5 +51,14 @@ export const getComments=(isbn:string)=>{
     params:{
       isbn:isbn
     }
+  })
+}
+
+
+//사용자 댓글 삭제
+export const deleteComment=(isbn:string,email:string)=>{
+  return axios.post('/api/deleteComment',{
+    isbn:isbn,
+    email:email
   })
 }
