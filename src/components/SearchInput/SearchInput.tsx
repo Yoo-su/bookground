@@ -19,6 +19,7 @@ function SearchInput({ setBooks, setLoading }: propsType) {
 
   const search = (query:string) => {
     if (query.length === 0) {
+      localStorage.removeItem('query')
       return
     }
     localStorage.setItem('query',query);

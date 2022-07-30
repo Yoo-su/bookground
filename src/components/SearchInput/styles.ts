@@ -25,12 +25,13 @@ transition:transform 0.1s linear;
 export const CustomInput = styled.input`
     border:none;
     outline:none;
-    flex-grow:1;
+    flex:1;
     font-size:1.5rem;
     font-family: 'Do Hyeon', sans-serif;
 
     @media all and (min-width:280px) and (max-width:540px){
-        font-size:22px;
+        font-size:16px;
+        flex:0;
     }    
 `;
 
@@ -43,6 +44,7 @@ export const SearchBtn = styled.button`
     cursor:pointer;
     border-radius:50%;
     background:linear-gradient(to bottom, #6CA0DC, #e39ff6);
+    margin-left:auto;
     
     :active{
         transform:scale(0.9);

@@ -34,6 +34,11 @@ const Nav = styled.nav`
   align-items: center;
   gap: 4px;
   margin: 16px;
+
+  @media all and (min-width:280px) and (max-width:540px){
+    gap:2px;
+    margin:12px; 
+  }
 `;
 
 const Button = styled.button`
@@ -62,6 +67,11 @@ const Button = styled.button`
     font-weight: bold;
     cursor: revert;
     transform: revert;
+  }
+
+  @media all and (min-width:280px) and (max-width:540px){
+    font-size:0.8rem;
+    padding:6px;
   }
 `;
 

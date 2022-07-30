@@ -59,6 +59,16 @@ export const Wrapper=styled.nav<wrapperProps>`
 
         .navbar_left{
             margin-left:1rem;
+
+            .navbar_left_title{
+                label{
+                    font-size:1.6rem;
+                }
+                .logoIcon{
+                    width:2.5rem;
+                    height:2.5rem;
+                }
+            }
         }
         .navbar_right{
             margin-right:1rem;

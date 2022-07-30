@@ -26,6 +26,10 @@ const BookContainer = styled.div`
       b{
         margin-left:150px;
         font-family: 'IBM Plex Sans KR', sans-serif;
+
+        @media all and (min-width:280px) and (max-width:540px){
+          margin-left:1.5rem;
+        }
       }
     }
     
