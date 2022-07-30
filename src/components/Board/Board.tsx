@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import Comments from './Comments';
+import Comments from '@components/Comments';
 import { BoardWrapper } from './styles';
 import { FcVoicePresentation } from 'react-icons/fc';
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import SnackAlert from './SnackAlert';
+import SnackAlert from '@components/SnackAlert';
 import { MdSend } from 'react-icons/md'
 import { boardType } from '../../types/boardType';
 import { newComment } from '@api/book';
@@ -31,7 +31,8 @@ export default function Board({ isbn, data, status }: boardType) {
             return;
         }
 
-        const date=new Date().toLocaleDateString()
+        let tmp=new Date()
+        const date=tmp.toLocaleDateString()+' '+tmp.toLocaleTimeString().slice(0,7);
         newComment(isbn, data.user, rate, userInput,date).then(res=>{
             if (res.data.success){
                 setSnackMsg(res.data.message);
@@ -61,7 +62,7 @@ export default function Board({ isbn, data, status }: boardType) {
     })
 
     return (
-        <BoardWrapper>
+        <BoardWrapper id="userBoard">
             <h2><FcVoicePresentation className='commentIcon' /> 의견 게시판</h2>
 
             <div className="inputWrapper">
@@ -74,10 +75,11 @@ export default function Board({ isbn, data, status }: boardType) {
                             }} />
                     </div>
                     <TextField
+                        className="textField"
                         multiline
                         fullWidth
                         color="info"
-                        label={status === 'authenticated' ? '책에 대한 본인의 의견을 남겨보세요 😄' : '로그인 후 의견을 남겨보세요!'}
+                        label={status === 'authenticated' ? `${data.user.name}님의 의견을 남겨보세요 😄` : '로그인 후 의견을 남겨보세요!'}
                         disabled={status === 'unauthenticated' ? true : false}
                         minRows={4}
                         value={userInput} onChange={handleInputChange}
@@ -92,7 +94,7 @@ export default function Board({ isbn, data, status }: boardType) {
                 </div>
             </div>
 
-            <Comments isbn={isbn} />
+            <Comments isbn={isbn} comments={comments} setComments={setComments} user={data?.user} />
             <SnackAlert open={showSnackbar} setOpen={setShowSnackbar} message={snackMsg} />
         </BoardWrapper>
     );

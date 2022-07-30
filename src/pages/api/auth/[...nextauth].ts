@@ -5,8 +5,18 @@ export default NextAuth({
     providers:[
         GoogleProvider({
             clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID||'',
-            clientSecret:process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET||''
+            clientSecret:process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET||'',
+            authorization: {
+                params: {
+                  prompt: "consent",
+                  access_type: "offline",
+                  response_type: "code"
+                }
+              },
         })
     ],
-    secret:process.env.SECRET
+    jwt: {
+      encryption: true
+    },
+    secret: "secret token",
 });

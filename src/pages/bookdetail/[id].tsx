@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import { useSession } from 'next-auth/react';
 import { Wrapper } from './styles';
-import BookInfo from './BookInfo';
-import Board from './Board';
+import BookInfo from '@components/BookInfo';
+import Board from '@components/Board';
 
 export default function BookDetail() {
   
@@ -15,9 +15,9 @@ export default function BookDetail() {
 
   return (
     <Wrapper>
-      {isbn && <BookInfo isbn={isbn} data={data} status={status} />}
+      {(isbn&&status!=='loading') &&  <BookInfo isbn={isbn} data={data} status={status} />}
       
-      {isbn && <Board isbn={isbn} data={data} status={status} />}
+      {(isbn&&status!=='loading') && <Board isbn={isbn} data={data} status={status} />}
     </Wrapper>
   )
 }

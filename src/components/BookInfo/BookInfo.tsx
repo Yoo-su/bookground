@@ -5,6 +5,7 @@ import { Oval } from 'react-loader-spinner'
 import Chip from '@mui/material/Chip';
 import Rating from '@mui/material/Rating';
 import Fab from '@mui/material/Fab';
+import SnackAlert from '@components/SnackAlert';
 import { BsHandThumbsUp, BsHandThumbsDown, BsArrowDownCircle } from 'react-icons/bs';
 import xml2js from "xml2js";
 
@@ -29,10 +30,16 @@ export default function BookInfo({isbn, data, status}:any) {
     const [upBtnOn, setUpBtnOn] = useState(false);
     const [downBtnOn, setDownBtnOn] = useState(false);
 
+    const [showSnackbar, setShowSnackbar] = useState(false);
+    const [snackMsg, setSnackMsg] =  useState('');
 
     //엄지척 버튼 클릭처리
     const handleUpClick=()=>{
-        if (status==='unauthenticated') return;
+        if (status==='unauthenticated'){
+            setSnackMsg('로그인 후 이용 가능합니다')
+            setShowSnackbar(true);
+            return;
+        }
 
         //엄지다운 버튼이 눌려져 있던 상태면
         if (downBtnOn) {
@@ -56,7 +63,11 @@ export default function BookInfo({isbn, data, status}:any) {
 
     //엄지다운 버튼 클릭 처리
     const handleDownClick=()=>{
-        if (status==='unauthenticated') return;
+        if (status==='unauthenticated'){
+            setSnackMsg('로그인 후 이용 가능합니다')
+            setShowSnackbar(true);
+            return;
+        }
 
         //엄지척 버튼이 눌려져 있던 상태면
         if (upBtnOn) {
@@ -78,10 +89,14 @@ export default function BookInfo({isbn, data, status}:any) {
         }
     }
 
+    //게시판으로 스크롤
+    const scrollToBoard=()=>{
+        document.getElementById("userBoard")?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
 
     useEffect(() => {
         //책 상세 정보 api 호출
-        isbn!=='' && getInfoByIsbn(isbn, data?.user?.email).then(res => {
+        getInfoByIsbn(isbn, data?.user?.email).then(res => {
             if (res.data.success) {
                 const parser = new xml2js.Parser();
                 parser.parseString(res.data.item, function (err, result) {
@@ -110,7 +125,7 @@ export default function BookInfo({isbn, data, status}:any) {
                     <div className="imgBox">
                         <div className="backPattern1"></div>
                         <div className="backPattern2"></div>
-                        <img src={imgUrl} alt={imgUrl} loading="lazy" />
+                        <img src={imgUrl} alt={imgUrl} />
                     </div>
 
                     <div className="infoBox">
@@ -134,13 +149,13 @@ export default function BookInfo({isbn, data, status}:any) {
                         <b className="author">{author}</b>
                         <p className="desc">- {desc}</p>
                     </div>
-                    <Fab className="goBoardBtn" variant="extended" color="info">
-                        <BsArrowDownCircle />
-                        게시판으로 가기
+                    <Fab className="goBoardBtn" variant="extended" color="info" onClick={scrollToBoard}>
+                        리뷰 확인하기 
+                        <BsArrowDownCircle className='downIcon' size={24} />
                     </Fab>
                 </>
             }
-
+            <SnackAlert open={showSnackbar} setOpen={setShowSnackbar} message={snackMsg} />
         </BookWrapper>
     );
 }

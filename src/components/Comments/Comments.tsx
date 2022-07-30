@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
 import { AiOutlineDelete } from 'react-icons/ai'
-import SnackAlert from './SnackAlert';
+import SnackAlert from '../SnackAlert';
 import Pagination from '@components/common/Pagination';
 import { CommentsList, Comment } from './styles';
 import { getComments, deleteComment  } from '@api/book';
@@ -47,7 +47,7 @@ export default function Comments({isbn,comments,setComments,user}:propsType){
     return(
         <CommentsList>
             {comments.slice(offset, offset + limit).map((comment,index)=>(
-                <Comment key={comment._id} order={index%5} master={comment.email===user.email}>
+                <Comment key={comment._id} order={index%5} master={user?comment.email===user.email:false}>
                     <div className="left">
                         <Avatar src={comment.profileImg} sx={{ width: 56, height: 56 }} />
                         
