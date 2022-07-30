@@ -19,17 +19,19 @@ transition:transform 0.1s linear;
 @media all and (min-width:280px) and (max-width:540px){
     width:65%;
     height:1.5rem;
+    padding:1rem;
 }
 `;
 
 export const CustomInput = styled.input`
     border:none;
     outline:none;
+    max-width:70%;
     flex:1;
     font-size:1.5rem;
     font-family: 'Do Hyeon', sans-serif;
 
-    @media all and (min-width:280px) and (max-width:540px){
+    @media all and (min-width:0px) and (max-width:540px){
         font-size:16px;
         flex:0;
     }    
@@ -55,5 +57,15 @@ export const SearchBtn = styled.button`
         width:1.5rem;
         height:1.5rem;
         color:white;
+    }
+
+    @media all and (min-width:0px) and (max-width:540px){
+        width:2rem;
+        height:2rem;
+
+        .searchIcon{
+            width:1rem;
+            height:1rem;
+        }
     }
 `;

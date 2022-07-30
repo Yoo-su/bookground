@@ -62,7 +62,7 @@ export const Wrapper=styled.div<propsType>`
         display:flex;
         position:absolute;
         top:25%;
-        left:28%;
+        left:26.5%;
         visibility:${props=>props.hovered===true?'visible':'hidden'};
         align-items:center;
         justify-content:center;
@@ -85,5 +85,10 @@ export const Wrapper=styled.div<propsType>`
         width:10rem;
         height:15rem;
         margin:0.5rem 0.8rem;
+
+        .toDetailBtn{
+            top:30%;
+            left:22%;
+        }
     }
 `;
