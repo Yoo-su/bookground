@@ -15,6 +15,11 @@ transition:transform 0.1s linear;
 :focus{
     transform:scale(1.1);
 }
+
+@media all and (min-width:280px) and (max-width:540px){
+    width:65%;
+    height:1.5rem;
+}
 `;
 
 export const CustomInput = styled.input`
@@ -23,6 +28,10 @@ export const CustomInput = styled.input`
     flex-grow:1;
     font-size:1.5rem;
     font-family: 'Do Hyeon', sans-serif;
+
+    @media all and (min-width:280px) and (max-width:540px){
+        font-size:22px;
+    }    
 `;
 
 export const SearchBtn = styled.button`
@@ -33,7 +42,7 @@ export const SearchBtn = styled.button`
     padding:0.5rem;
     cursor:pointer;
     border-radius:50%;
-    background:linear-gradient(to bottom, #4d0f28, #e39ff6);
+    background:linear-gradient(to bottom, #6CA0DC, #e39ff6);
     
     :active{
         transform:scale(0.9);

@@ -34,6 +34,10 @@ const BookContainer = styled.div`
       justify-content:center;
       flex-wrap:wrap;
       padding:0 50px;
+
+      @media all and (min-width:280px) and (max-width:540px){
+        padding:0.5rem 0.1rem;
+      }
     }
 `;
 

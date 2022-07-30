@@ -1,7 +1,7 @@
-import React, { useState, memo } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import { Wrapper, CustomInput, SearchBtn } from './styles'
 import { BsSearch } from 'react-icons/bs';
-import axios from 'axios';
+import { getBooks } from '@api/book';
 
 interface propsType {
   setBooks: any,
@@ -13,30 +13,32 @@ function SearchInput({ setBooks, setLoading }: propsType) {
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == 'Enter') {
-      search();
+      search(keyword);
     }
   }
 
-  const search = () => {
-    if (keyword.length === 0) {
+  const search = (query:string) => {
+    if (query.length === 0) {
       return
     }
+    localStorage.setItem('query',query);
     setBooks([]);
     setLoading(true);
-    axios.get('/api/books', {
-      params: {
-        query: keyword,
-      }
-    }).then(res => {
-      if (res.data.success === true) {
-        setBooks(res.data.items);
-        setLoading(false);
-      }
-      else {
-        alert('오류발생');
-      }
+    getBooks(query).then(res => {
+      setBooks(res.data.items);
+      setLoading(false);
+
+      if (!res.data.success) alert('오류가 발생했습니다')
     })
   }
+
+  useEffect(()=>{
+    const query=localStorage.getItem('query')
+    if (query){
+      setKeyword(query);
+      search(query);
+    }
+  },[])
 
   return (
     <Wrapper>
@@ -45,9 +47,10 @@ function SearchInput({ setBooks, setLoading }: propsType) {
           setKeyword(e.target.value);
         }}
         onKeyPress={onKeyPress}
+        value={keyword}
       />
       <SearchBtn onClick={() => {
-        search();
+        search(keyword);
       }}>
         <BsSearch className="searchIcon" />
       </SearchBtn>

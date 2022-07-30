@@ -15,7 +15,7 @@ export const Wrapper=styled.nav<wrapperProps>`
     width:100%;
     top:0; 
     z-index:90;
-    background:${props=>props.isTop===true?'rgba(255,255,255,1)':'rgba(255,255,255,0.7)'};
+    background:${props=>props.isTop===true?'rgba(188,158,130,1)':'rgba(188,158,130,0.7)'};
     height:${props=>props.isTop===true?'4.5rem':'2.5rem'};
     transition:height 0.1s linear;
     
@@ -52,7 +52,17 @@ export const Wrapper=styled.nav<wrapperProps>`
         flex:1;
         display:flex;
         justify-content:flex-end;
-        
+    }
+
+    @media all and (min-width:280px) and (max-width:540px){
+        padding:0.5rem 0;
+
+        .navbar_left{
+            margin-left:1rem;
+        }
+        .navbar_right{
+            margin-right:1rem;
+        }
     }
 `;
 
