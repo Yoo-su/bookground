@@ -27,7 +27,7 @@ export default function Navbar() {
 
     return (
         <Wrapper isTop={isTop}>
-            <Link href={'/'}>
+            <Link href={'/'} passHref>
             <div className='navbar_left'>
                 <div className='navbar_left_title'>
                     <FcReadingEbook className="logoIcon" />
@@ -45,7 +45,7 @@ export default function Navbar() {
                     </LoginBtn>
                 }
                 { status==='authenticated' && 
-                    <LoginUserChip profileImg={data.user?.image} name={data.user?.name} />
+                    <LoginUserChip profileImg={data?.user?.image||''} name={data?.user?.name||''} />
                 }
             </div>
         </Wrapper>

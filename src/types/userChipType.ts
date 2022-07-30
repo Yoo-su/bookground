@@ -1,4 +1,4 @@
 export default interface userChipType{
-    profileImg:string|null|undefined,
-    name:string|null|undefined,
+    profileImg:string,
+    name:string,
 }
