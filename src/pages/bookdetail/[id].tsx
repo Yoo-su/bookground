@@ -1,8 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import { useSession } from 'next-auth/react';
-import { Wrapper } from './styles';
+import styled from 'styled-components';
 import BookInfo from '@components/BookInfo';
 import Board from '@components/Board';
+
+const Wrapper=styled.div`
+    display:flex;
+    flex-direction:column;
+    padding:2rem 5rem;
+    margin-top:8rem;
+
+    @media all and (min-width:280px) and (max-width:540px){
+        padding:0;
+        justify-content:center;
+        overflow:hidden;
+    }
+`;
 
 export default function BookDetail() {
   
