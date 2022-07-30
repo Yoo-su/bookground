@@ -16,7 +16,7 @@ interface propsType{
     description:string
 }
 
-function Book({title,link,image,author,publisher,pubdate,isbn,description}:propsType) {
+function Book({title,image,author,publisher,pubdate,isbn,description}:propsType) {
   const [hovered, setHovered]=useState(false);
   
   const router=useRouter();
