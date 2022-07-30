@@ -21,19 +21,14 @@ function Book({title,link,image,author,publisher,pubdate,isbn,description}:props
   
   const router=useRouter();
 
-  const refinedTitle= title.replace(/(<([^>]+)>)/gi, "");
-  const refinedAuthor= author.replace(/(<([^>]+)>)/gi, "");
-  const refinedPublisher=publisher.replace(/(<([^>]+)>)/gi, "");
-  const refinedDesc=description.replace(/(<([^>]+)>)/gi, "");
-
   return (
     <Wrapper onMouseEnter={()=>{setHovered(true)}} onMouseLeave={()=>{setHovered(false)}} hovered={hovered}>
       <div className="bookCover">
         <img className='coverImg' src={image} alt={image} loading="lazy" />
       </div>
       <div className="bookInfo">
-        <b>{refinedTitle}</b>
-        <label>저자: {refinedAuthor}</label>
+        <b>{title}</b>
+        <label>저자: {author}</label>
       </div>
 
       <button className='toDetailBtn' onClick={()=>{

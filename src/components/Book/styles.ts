@@ -80,4 +80,10 @@ export const Wrapper=styled.div<propsType>`
             margin-right:0.2rem;
         }
     }
+
+    @media all and (min-width:280px) and (max-width:540px){
+        width:10rem;
+        height:15rem;
+        margin:0.5rem 0.8rem;
+    }
 `;
