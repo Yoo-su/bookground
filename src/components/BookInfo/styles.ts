@@ -23,7 +23,7 @@ export const BookWrapper=styled.div`
     justify-content:center;
     margin:0 2rem;
 
-    @media all and (min-width:280px) and (max-width:540px){
+    @media all and (min-width:0px) and (max-width:1023px){
         flex-direction:column;
         margin:2rem 1.5rem;
 
@@ -118,7 +118,7 @@ export const BookWrapper=styled.div`
             
         }
 
-        @media all and (min-width:280px) and (max-width:540px){
+        @media all and (min-width:0px) and (max-width:1023px){
             max-width:100%;
             margin:4rem 0 0 0;
 

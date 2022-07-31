@@ -8,7 +8,7 @@ export const BoardWrapper=styled.div`
     padding:0 5rem;
     font-family: 'Nanum Myeongjo', serif;
 
-    @media all and (min-width:280px) and (max-width:540px){
+    @media all and (min-width:0px) and (max-width:1023px){
         margin-top:5rem;
         padding:0 1rem;
     }
@@ -25,7 +25,7 @@ export const BoardWrapper=styled.div`
             height:2rem;
         }
 
-        @media all and (min-width:280px) and (max-width:540px){
+        @media all and (min-width:0px) and (max-width:1023px){
             font-size:18px;
             
             .commentIcon{
@@ -40,7 +40,7 @@ export const BoardWrapper=styled.div`
         align-items:center;
         width:100%;
 
-        @media all and (min-width:280px) and (max-width:540px){
+        @media all and (min-width:0px) and (max-width:1023px){
             flex-direction:column;
         }
         
@@ -65,7 +65,7 @@ export const BoardWrapper=styled.div`
                 font-family: 'Nanum Myeongjo', serif;
             }
 
-            @media all and (min-width:280px) and (max-width:540px){
+            @media all and (min-width:0px) and (max-width:1023px){
                 width:100%;
                 .rating{
                     margin-right:0.5rem;
@@ -95,7 +95,7 @@ export const BoardWrapper=styled.div`
             height:100px;
             font-family: 'Nanum Myeongjo', serif;
 
-            @media all and (min-width:280px) and (max-width:540px){
+            @media all and (min-width:0px) and (max-width:1023px){
                 width:100%;
                 flex:0;
                 margin:3px 0 0 0;

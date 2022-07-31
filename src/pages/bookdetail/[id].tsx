@@ -10,7 +10,7 @@ const Wrapper=styled.div`
     padding:2rem 5rem;
     margin-top:8rem;
 
-    @media all and (min-width:280px) and (max-width:540px){
+    @media all and (min-width:0px) and (max-width:1023px){
         padding:0;
         justify-content:center;
         overflow:hidden;

@@ -81,7 +81,7 @@ export const Wrapper=styled.div<propsType>`
         }
     }
 
-    @media all and (min-width:280px) and (max-width:540px){
+    @media all and (min-width:0px) and (max-width:1023px){
         width:10rem;
         height:15rem;
         margin:0.5rem 0.8rem;

@@ -35,7 +35,7 @@ const Nav = styled.nav`
   gap: 4px;
   margin: 16px;
 
-  @media all and (min-width:280px) and (max-width:540px){
+  @media all and (min-width:0px) and (max-width:1023px){
     gap:2px;
     margin:12px; 
   }
@@ -69,7 +69,7 @@ const Button = styled.button`
     transform: revert;
   }
 
-  @media all and (min-width:280px) and (max-width:540px){
+  @media all and (min-width:0px) and (max-width:1023px){
     font-size:0.8rem;
     padding:6px;
   }

@@ -27,7 +27,7 @@ const BookContainer = styled.div`
         margin-left:150px;
         font-family: 'IBM Plex Sans KR', sans-serif;
 
-        @media all and (min-width:280px) and (max-width:540px){
+        @media all and (min-width:0px) and (max-width:1023px){
           margin-left:1.5rem;
         }
       }
@@ -39,7 +39,7 @@ const BookContainer = styled.div`
       flex-wrap:wrap;
       padding:0 50px;
 
-      @media all and (min-width:280px) and (max-width:540px){
+      @media all and (min-width:0px) and (max-width:1023px){
         padding:0.5rem 0.1rem;
       }
     }

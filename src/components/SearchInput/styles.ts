@@ -16,7 +16,7 @@ transition:transform 0.1s linear;
     transform:scale(1.1);
 }
 
-@media all and (min-width:280px) and (max-width:540px){
+@media all and (min-width:0px) and (max-width:1023px){
     width:65%;
     height:1.5rem;
     padding:1rem;

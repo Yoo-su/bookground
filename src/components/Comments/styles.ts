@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const CommentsList=styled.ul`
    list-style:none;
    padding-left:0;
-   @media all and (min-width:280px) and (max-width:540px){
+   @media all and (min-width:0px) and (max-width:1023px){
         overflow:hidden;
     }
 `
@@ -64,7 +64,7 @@ export const Comment=styled.li<commentProps>`
         }
    }
 
-   @media all and (min-width:280px) and (max-width:540px){
+   @media all and (min-width:0px) and (max-width:1023px){
     .left{
         padding:1rem;
         .MuiAvatar-root{

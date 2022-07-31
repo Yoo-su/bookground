@@ -54,7 +54,7 @@ export const Wrapper=styled.nav<wrapperProps>`
         justify-content:flex-end;
     }
 
-    @media all and (min-width:280px) and (max-width:540px){
+    @media all and (min-width:0px) and (max-width:1023px){
         padding:0.5rem 0;
 
         .navbar_left{
