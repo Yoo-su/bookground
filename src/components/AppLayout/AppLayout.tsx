@@ -9,6 +9,7 @@ export default function AppLayout({children}:propsType) {
   return (
     <div>
         <header>
+          <title>BookGround</title>
           <Navbar />
         </header>
         <main>
