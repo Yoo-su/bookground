@@ -85,10 +85,10 @@ export const Wrapper=styled.div<propsType>`
         width:10rem;
         height:15rem;
         margin:0.5rem 0.8rem;
-
+        padding-top:0;
         .toDetailBtn{
             top:30%;
-            left:22%;
+            left:21.5%;
         }
     }
 `;
