@@ -32,7 +32,8 @@ export default function Board({ isbn, data, status }: boardType) {
         }
 
         let tmp=new Date()
-        const date=tmp.toLocaleDateString()+' '+tmp.toLocaleTimeString().slice(0,7);
+        const time = tmp.toLocaleDateString().length===10?tmp.toLocaleDateString().slice(0,7):tmp.toLocaleDateString().slice(0,8);
+        const date=tmp.toLocaleDateString()+' '+time;
         newComment(isbn, data.user, rate, userInput,date).then(res=>{
             if (res.data.success){
                 setSnackMsg(res.data.message);

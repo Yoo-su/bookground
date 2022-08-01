@@ -8,7 +8,7 @@ const Wrapper=styled.div`
     display:flex;
     flex-direction:column;
     padding:2rem 5rem;
-    margin-top:8rem;
+    margin-top:9rem;
 
     @media all and (min-width:0px) and (max-width:1023px){
         padding:0;
