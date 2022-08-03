@@ -109,10 +109,24 @@ export const BookWrapper=styled.div`
         .title{
             font-size:28px;
         }
-        .author{
-            font-size:14px;
+        .sideInfo{
+            width:100%;
+            display:flex;
             margin-top:10px;
+            font-size:14px;
+        
+            .pubInfo{
+                display:flex;
+                justify-content:flex-end;
+                flex:1;
+                color:rgba(0,0,0,0.65);
+                .pubdate{
+                    margin-left:1rem;
+                }
+            }
+
         }
+        
         .desc{
             font-size:18px;
             
@@ -125,10 +139,11 @@ export const BookWrapper=styled.div`
             .title{
                 font-size:20px;
             }
-            .author{
-                font-size:14px;
+            .sideInfo{
                 margin-top:8px;
+                font-size:12px;
             }
+            
             .desc{
                 font-size:12px;
                 letter-spacing:1px;

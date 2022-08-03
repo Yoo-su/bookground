@@ -18,6 +18,7 @@ export default function BookInfo({isbn, data, status}:any) {
     const [publisher, setPublisher] = useState('');
     const [imgUrl, setImgUrl] = useState('');
     const [bookIsbn, setBookIsbn]=useState('');
+    const [pubdate, setPubdate] = useState('');
 
     const [upCount, setUpCount] = useState(0);
     const [downCount, setDownCount] = useState(0);
@@ -106,6 +107,8 @@ export default function BookInfo({isbn, data, status}:any) {
                     setAuthor(item[0].author[0]);
                     setBookIsbn(item[0].isbn[0]);
                     setImgUrl(item[0].image[0])
+                    setPublisher(item[0].publisher[0]);
+                    setPubdate(item[0].pubdate[0]);
                     setUpCount(res.data.upCnt);
                     setDownCount(res.data.downCnt);
                     setRatingValue(res.data.avgRate);
@@ -146,7 +149,15 @@ export default function BookInfo({isbn, data, status}:any) {
                             </div>
                         </div>
                         <b className="title">{title}</b>
-                        <b className="author">{author}</b>
+
+                        <div className="sideInfo">
+                            <b className="author">{author}</b>
+                            <div className="pubInfo">
+                                <b className="publisher">{publisher}</b>
+                                <b className="pubdate">{pubdate.slice(0,4)+'.'+pubdate.slice(4,6)+'.'+pubdate.slice(6,8)}</b>
+                            </div>
+                        </div>
+
                         <p className="desc">- {desc}</p>
                     </div>
                     <Fab className="goBoardBtn" variant="extended" color="info" onClick={scrollToBoard}>
