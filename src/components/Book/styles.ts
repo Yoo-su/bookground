@@ -45,10 +45,18 @@ export const Wrapper=styled.div<propsType>`
         min-height:4.5rem;
         margin-top:0.2rem;
 
+        b, label{
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            text-align:center;
+        }
         b{
             font-size:12px;
         }
-
         label{
             font-size:8px;
         }
