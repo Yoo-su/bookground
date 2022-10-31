@@ -1,6 +1,6 @@
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-const floating=keyframes`
+const floating = keyframes`
     0%{
         transform:translateY(0px);
     }
@@ -14,7 +14,7 @@ const floating=keyframes`
 
 
 //책 정보 Wrapper
-export const BookWrapper=styled.div`
+export const BookWrapper = styled.div`
     display:flex;
     position:relative;
     align-items:center;

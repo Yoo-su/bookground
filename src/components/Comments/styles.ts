@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const CommentsList=styled.ul`
+export const CommentsList = styled.ul`
    list-style:none;
    padding-left:0;
    @media all and (min-width:0px) and (max-width:1023px){
@@ -8,16 +8,16 @@ export const CommentsList=styled.ul`
     }
 `
 
-interface commentProps{
-    order:number,
-    master:boolean,
+interface commentProps {
+    order: number,
+    master: boolean,
 }
-export const Comment=styled.li<commentProps>`
+export const Comment = styled.li<commentProps>`
    display:flex;
    border-radius:1rem;
    margin-bottom:1rem;
-   background-color:${props=>props.order===0?'rgba(0,0,0,0.1)': props.order===1?
-   'rgba(34,140,34,0.1)':props.order===2?'rgba(175,128,79,0.1)':props.order===3?'rgba(85,170,255,0.1)':'rgba(255,210,52,0.1)'};
+   background-color:${props => props.order === 0 ? 'rgba(0,0,0,0.1)' : props.order === 1 ?
+        'rgba(34,140,34,0.1)' : props.order === 2 ? 'rgba(175,128,79,0.1)' : props.order === 3 ? 'rgba(85,170,255,0.1)' : 'rgba(255,210,52,0.1)'};
    .left{
         display:grid;
         justify-content: center;
@@ -47,7 +47,7 @@ export const Comment=styled.li<commentProps>`
             }
 
             .deleteIcon{
-                display:${props=>props.master===false && 'none'};
+                display:${props => props.master === false && 'none'};
                 margin-left:auto;
                 cursor:pointer;
                 color:rgba(0,0,0,0.6);

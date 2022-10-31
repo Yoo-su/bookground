@@ -1,1 +1,1 @@
-export {default} from './BookInfo';
+export { default } from './BookInfo';

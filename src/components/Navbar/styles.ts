@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-interface wrapperProps{
-    isTop:boolean
+interface wrapperProps {
+    isTop: boolean
 }
 
-export const Wrapper=styled.nav<wrapperProps>`
+export const Wrapper = styled.nav<wrapperProps>`
     display:flex;
     flex-direction:row;
     align-items:center;
@@ -15,8 +15,8 @@ export const Wrapper=styled.nav<wrapperProps>`
     width:100%;
     top:0; 
     z-index:90;
-    background:${props=>props.isTop===true?'rgba(188,158,130,1)':'rgba(188,158,130,0.7)'};
-    height:${props=>props.isTop===true?'4.5rem':'2.5rem'};
+    background:${props => props.isTop === true ? 'rgba(188,158,130,1)' : 'rgba(188,158,130,0.7)'};
+    height:${props => props.isTop === true ? '4.5rem' : '2.5rem'};
     transition:height 0.1s linear;
     
     .navbar_left{
@@ -76,7 +76,7 @@ export const Wrapper=styled.nav<wrapperProps>`
     }
 `;
 
-export const LoginBtn=styled.button`
+export const LoginBtn = styled.button`
     display:flex;
     align-items:center;
     border-radius:2rem;

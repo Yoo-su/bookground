@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 //게시판 Wrapper
-export const BoardWrapper=styled.div`
+export const BoardWrapper = styled.div`
     display:flex;
     flex-direction:column;
     margin-top:15rem;

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-interface propsType{
-    hovered:boolean
+interface propsType {
+    hovered: boolean
 }
 
-export const Wrapper=styled.div<propsType>`
+export const Wrapper = styled.div<propsType>`
     display:flex;
     position:relative;
     flex-direction:column;
@@ -20,7 +20,7 @@ export const Wrapper=styled.div<propsType>`
     overflow:hidden;
     
     .bookCover, .bookInfo{
-        opacity:${props=>props.hovered===true?'0.5':'1'};
+        opacity:${props => props.hovered === true ? '0.5' : '1'};
         transition:opacity 0.2s linear;
     }
 
@@ -45,7 +45,7 @@ export const Wrapper=styled.div<propsType>`
         min-height:4.5rem;
         margin-top:0.2rem;
 
-        b, label{
+        b, label{  
             width: 100%;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -71,7 +71,7 @@ export const Wrapper=styled.div<propsType>`
         position:absolute;
         top:25%;
         left:26.5%;
-        visibility:${props=>props.hovered===true?'visible':'hidden'};
+        visibility:${props => props.hovered === true ? 'visible' : 'hidden'};
         align-items:center;
         justify-content:center;
         padding:0.2rem 0.3rem;

@@ -1,50 +1,55 @@
 import { useState, useEffect } from 'react';
-import Comments from '@components/Comments';
+import { useSession } from 'next-auth/react';
+import Comments from 'components/Comments';
 import { BoardWrapper } from './styles';
 import { FcVoicePresentation } from 'react-icons/fc';
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import SnackAlert from '@components/SnackAlert';
+import SnackAlert from 'components/SnackAlert';
 import { MdSend } from 'react-icons/md'
-import { boardType } from '../../types/boardType';
-import { newComment } from '@api/book';
+import { newComment } from 'lib/api/book';
 
-export default function Board({ isbn, data, status }: boardType) {
+interface Prop {
+    isbn: string;
+}
+
+export default function Board({ isbn }: Prop) {
+    const { data, status } = useSession();
     const [rate, setRate] = useState<number | null>(0);
     const [userInput, setUserInput] = useState('');
     const [comments, setComments] = useState<any[]>([]);
 
     const [showSnackbar, setShowSnackbar] = useState(false);
-    const [snackMsg, setSnackMsg] =  useState('');
-    
-    const handleInputChange=(event:  React.ChangeEvent<HTMLInputElement>)=>{
+    const [snackMsg, setSnackMsg] = useState('');
+
+    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserInput(event.target.value)
     }
 
     //의견 등록
-    const submitComment=()=>{
-        if (userInput===''){
+    const submitComment = () => {
+        if (userInput === '') {
             setSnackMsg('내용을 입력해주세요')
             setShowSnackbar(true);
             return;
         }
 
-        let tmp=new Date()
-        const time = tmp.toLocaleTimeString().length===10?tmp.toLocaleTimeString().slice(0,7):tmp.toLocaleTimeString().slice(0,8);
-        const date=tmp.toLocaleDateString()+' '+time;
-        newComment(isbn, data.user, rate, userInput,date).then(res=>{
-            if (res.data.success){
+        let tmp = new Date()
+        const time = tmp.toLocaleTimeString().length === 10 ? tmp.toLocaleTimeString().slice(0, 7) : tmp.toLocaleTimeString().slice(0, 8);
+        const date = tmp.toLocaleDateString() + ' ' + time;
+        newComment(isbn, data?.user, rate, userInput, date).then(res => {
+            if (res.data.success) {
                 setSnackMsg(res.data.message);
                 setShowSnackbar(true)
-                setComments(current=>[...current,{
-                    email:data.user.email,
-                    name:data.user.name,
-                    image:data.user.image,
-                    rate:rate,
-                    comment:userInput,
-                    date:date
+                setComments(current => [...current, {
+                    email: data?.user.email,
+                    name: data?.user.name,
+                    image: data?.user.image,
+                    rate: rate,
+                    comment: userInput,
+                    date: date
                 }])
                 setRate(0);
                 setUserInput('');
@@ -58,7 +63,7 @@ export default function Board({ isbn, data, status }: boardType) {
         })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
 
     })
 
@@ -70,7 +75,7 @@ export default function Board({ isbn, data, status }: boardType) {
                 <div className="inputField">
                     <div className="rating">
                         <Avatar src={data?.user?.image} sx={{ width: 56, height: 56 }} />
-                        <Rating precision={0.5} value={rate} readOnly={status==='unauthenticated'?true:false}
+                        <Rating precision={0.5} value={rate} readOnly={status === 'unauthenticated' ? true : false}
                             onChange={(event, newValue) => {
                                 setRate(newValue);
                             }} />

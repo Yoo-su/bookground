@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Oval } from 'react-loader-spinner'
-import SearchInput from '@components/SearchInput';
-import Book from '@components/Book';
-import Pagination from '@components/common/Pagination';
+import SearchInput from 'components/SearchInput';
+import Book from 'components/Book';
+import Pagination from 'components/common/Pagination';
 import styled from 'styled-components';
-import bookType from '../types/booktype';
+import { BookType } from 'types/bookType';
 
 const Wrapper = styled.div`
   display:flex;
@@ -71,7 +71,7 @@ export default function Home() {
         {isLoading === true && <Oval color="#00BFFF" secondaryColor='grey' height={120} width={120} strokeWidth={4} />}
 
         <div className="books">
-          {books.slice(offset, offset + limit).map((book: bookType) => (
+          {books.slice(offset, offset + limit).map((book: BookType) => (
             <Book {...book} key={book.isbn} />
           ))}
         </div>

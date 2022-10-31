@@ -1,14 +1,10 @@
 import React, { useState, useEffect, memo } from 'react'
 import { Wrapper, CustomInput, SearchBtn } from './styles'
 import { BsSearch } from 'react-icons/bs';
-import { getBooks } from '@api/book';
+import { getBooks } from 'lib/api/book';
+import { SearchInputProp } from "types/bookType";
 
-interface propsType {
-  setBooks: any,
-  setLoading: any
-}
-
-function SearchInput({ setBooks, setLoading }: propsType) {
+function SearchInput({ setBooks, setLoading }: SearchInputProp) {
   const [keyword, setKeyword] = useState('');
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -17,12 +13,12 @@ function SearchInput({ setBooks, setLoading }: propsType) {
     }
   }
 
-  const search = (query:string) => {
+  const search = (query: string) => {
     if (query.length === 0) {
       localStorage.removeItem('query')
       return
     }
-    localStorage.setItem('query',query);
+    localStorage.setItem('query', query);
     setBooks([]);
     setLoading(true);
     getBooks(query).then(res => {
@@ -33,13 +29,13 @@ function SearchInput({ setBooks, setLoading }: propsType) {
     })
   }
 
-  useEffect(()=>{
-    const query=localStorage.getItem('query')
-    if (query){
+  useEffect(() => {
+    const query = localStorage.getItem('query')
+    if (query) {
       setKeyword(query);
       search(query);
     }
-  },[])
+  }, [])
 
   return (
     <Wrapper>
