@@ -10,6 +10,7 @@ import Button from '@mui/material/Button';
 import SnackAlert from 'components/SnackAlert';
 import { MdSend } from 'react-icons/md'
 import { newComment } from 'lib/api/book';
+import { CommentType } from "types/bookType";
 
 interface Prop {
     isbn: string;
@@ -19,7 +20,7 @@ export default function Board({ isbn }: Prop) {
     const { data, status } = useSession();
     const [rate, setRate] = useState<number | null>(0);
     const [userInput, setUserInput] = useState('');
-    const [comments, setComments] = useState<any[]>([]);
+    const [comments, setComments] = useState<CommentType[]>([]);
 
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [snackMsg, setSnackMsg] = useState('');
@@ -44,9 +45,9 @@ export default function Board({ isbn }: Prop) {
                 setSnackMsg(res.data.message);
                 setShowSnackbar(true)
                 setComments(current => [...current, {
-                    email: data?.user.email,
-                    name: data?.user.name,
-                    image: data?.user.image,
+                    email: data?.user.email || '',
+                    name: data?.user.name || '',
+                    image: data?.user.image || '',
                     rate: rate,
                     comment: userInput,
                     date: date

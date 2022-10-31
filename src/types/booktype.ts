@@ -41,3 +41,12 @@ export interface SearchInputProp {
     setBooks: Dispatch<SetStateAction<BookType[]>>;
     setLoading: Dispatch<SetStateAction<boolean>>;
 }
+
+export interface CommentType {
+    email: string;
+    name: string;
+    image: string;
+    rate: number | null;
+    comment: string;
+    date: string;
+}
