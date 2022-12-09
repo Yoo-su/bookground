@@ -14,27 +14,16 @@ function SearchInput({ setBooks, setLoading }: SearchInputProp) {
   }
 
   const search = (query: string) => {
-    if (query.length === 0) {
-      localStorage.removeItem('query')
-      return
-    }
-    localStorage.setItem('query', query);
     setBooks([]);
     setLoading(true);
     getBooks(query).then(res => {
       setBooks(res.data.items);
       setLoading(false);
-
-      if (!res.data.success) alert('오류가 발생했습니다')
     })
   }
 
   useEffect(() => {
-    const query = localStorage.getItem('query')
-    if (query) {
-      setKeyword(query);
-      search(query);
-    }
+    search(keyword);
   }, [])
 
   return (
