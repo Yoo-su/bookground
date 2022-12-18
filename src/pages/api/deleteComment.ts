@@ -1,36 +1,29 @@
+import { ObjectId } from 'mongodb';
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { connectToDatabase } from '@utils/mongodb';
-
-type Data = {
-    success: boolean,
-}
+import { connectToDatabase } from 'utils/mongodb';
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<Data>
+    res: NextApiResponse
 ) {
 
-    const { isbn,email } = req.body;
-    
+    const { _id } = req.body;
+
     try {
         const { db } = await connectToDatabase();
 
         const bookRep = db.collection("bookRep");
         const result = await bookRep.findOneAndUpdate({
-            isbn:isbn, email:email
-        },{
-            $set:{ rate:-1, comment:'' }
+            _id: new ObjectId(_id)
+        }, {
+            $set: { rate: -1, comment: '' }
         })
-        console.log('bookRep collection 업데이트 성공 여부: ',result.ok);
 
-        res.status(200).json({
-            success:true,
+        res.json({
+            success: true,
         })
 
     } catch (err) {
-        console.log(err)
-        res.status(200).json({
-            success:false,
-        })
+        throw err;
     }
 }

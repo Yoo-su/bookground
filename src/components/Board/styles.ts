@@ -1,7 +1,8 @@
 import styled from 'styled-components';
+import Box from "@mui/material/Box";
 
 //게시판 Wrapper
-export const BoardWrapper = styled.div`
+export const BoardWrapper = styled(Box)`
     display:flex;
     flex-direction:column;
     margin-top:15rem;
@@ -104,4 +105,18 @@ export const BoardWrapper = styled.div`
             }
         }
    }
+`;
+
+export const LoadingBox = styled(Box)`
+    display:grid;
+    justify-content: center;
+    align-items: center;
+`;
+
+export const EmptyBox = styled(Box)`
+    padding:5rem 0;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;

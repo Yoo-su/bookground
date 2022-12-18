@@ -9,7 +9,6 @@ import Link from 'next/link';
 export default function Navbar() {
     const [isTop, setIsTop] = useState(true);
     const { data, status } = useSession();
-    console.log(data, status)
 
     const onScroll = useCallback(() => {
         const scrollTop = document.documentElement.scrollTop;
@@ -46,7 +45,7 @@ export default function Navbar() {
                     </LoginBtn>
                 }
                 {status === 'authenticated' &&
-                    <LoginUserChip profileImg={data?.user?.image || ''} name={data?.user?.name || ''} />
+                    <LoginUserChip profileImg={data?.user?.image} name={data?.user?.name} />
                 }
             </div>
         </Wrapper>

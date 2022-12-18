@@ -1,10 +1,14 @@
-import React, { useState, useEffect, memo } from 'react'
+import { useState, memo } from 'react'
 import { Wrapper, CustomInput, SearchBtn } from './styles'
 import { BsSearch } from 'react-icons/bs';
-import { getBooks } from 'lib/api/book';
-import { SearchInputProp } from "types/bookType";
+import { useAppDispatch } from 'store/hook';
+import { get_books_by_query } from 'store/asyncThunks';
+import { setSearchQuery, setCurrentPage } from 'store/slices/bookSlice';
+import useSnack from 'hooks/useSnack';
 
-function SearchInput({ setBooks, setLoading }: SearchInputProp) {
+function SearchInput() {
+  const dispatch = useAppDispatch();
+  const { activateSnack } = useSnack();
   const [keyword, setKeyword] = useState('');
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -14,17 +18,14 @@ function SearchInput({ setBooks, setLoading }: SearchInputProp) {
   }
 
   const search = (query: string) => {
-    setBooks([]);
-    setLoading(true);
-    getBooks(query).then(res => {
-      setBooks(res.data.items);
-      setLoading(false);
-    })
+    if (!query) {
+      activateSnack("입력된 검색어가 없습니다", "info");
+      return;
+    }
+    dispatch(setCurrentPage(1));
+    dispatch(setSearchQuery(query));
+    dispatch(get_books_by_query({ query, start: 1 }));
   }
-
-  useEffect(() => {
-    search(keyword);
-  }, [])
 
   return (
     <Wrapper>

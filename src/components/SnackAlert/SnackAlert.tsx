@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import Snackbar from '@mui/material/Snackbar';
 import { AiOutlineClose, AiOutlineInfoCircle } from 'react-icons/ai'
-import { SnackAlertProp } from 'types/bookType';
+import { SnackAlertProp } from 'types';
 
 export default function SnackAlert({ open, setOpen, message }: SnackAlertProp) {
 

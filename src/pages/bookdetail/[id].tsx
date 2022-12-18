@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
 import styled from 'styled-components';
 import BookInfo from 'components/BookInfo';
 import Board from 'components/Board';
+import { useRouter } from "next/router"
 
 const Wrapper = styled.div`
     display:flex;
@@ -18,16 +17,14 @@ const Wrapper = styled.div`
 `;
 
 export default function BookDetail() {
-  const [isbn, setIsbn] = useState('');
-  useEffect(() => {
-    setIsbn(location.href.split('=')[1]);
-  }, [status])
+  const router = useRouter();
+  const { id } = router.query;
 
   return (
     <Wrapper>
-      {(isbn && status !== 'loading') && <BookInfo isbn={isbn} />}
+      {typeof id === "string" && <BookInfo isbn={id} />}
 
-      {(isbn && status !== 'loading') && <Board isbn={isbn} />}
+      {typeof id === "string" && <Board isbn={id} />}
     </Wrapper>
   )
 }

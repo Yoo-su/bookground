@@ -1,108 +1,112 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment, memo } from 'react';
 import { useSession } from 'next-auth/react';
 import Comments from 'components/Comments';
-import { BoardWrapper } from './styles';
+import { BoardWrapper, LoadingBox, EmptyBox } from './styles';
 import { FcVoicePresentation } from 'react-icons/fc';
+import { FaSadCry } from "react-icons/fa";
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import SnackAlert from 'components/SnackAlert';
+import CircularProgress from '@mui/material/CircularProgress';
 import { MdSend } from 'react-icons/md'
-import { newComment } from 'lib/api/book';
-import { CommentType } from "types/bookType";
+import { get_comments, create_new_comment } from 'store/asyncThunks';
+import { useAppDispatch, useAppSelector } from 'store/hook';
+import useSnack from 'hooks/useSnack';
 
 interface Prop {
     isbn: string;
 }
 
-export default function Board({ isbn }: Prop) {
-    const { data, status } = useSession();
-    const [rate, setRate] = useState<number | null>(0);
+const Board = ({ isbn }: Prop) => {
+    const { data: session, status } = useSession();
+    const { comments, commentsLoading } = useAppSelector(state => state.books);
+    const dispatch = useAppDispatch();
+    const [rate, setRate] = useState<number>(0);
     const [userInput, setUserInput] = useState('');
-    const [comments, setComments] = useState<CommentType[]>([]);
 
-    const [showSnackbar, setShowSnackbar] = useState(false);
-    const [snackMsg, setSnackMsg] = useState('');
-
-    const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setUserInput(event.target.value)
-    }
+    const { activateSnack } = useSnack();
 
     //의견 등록
     const submitComment = () => {
         if (userInput === '') {
-            setSnackMsg('내용을 입력해주세요')
-            setShowSnackbar(true);
+            activateSnack("메시지를 입력해주세요", "info");
             return;
         }
 
         let tmp = new Date()
         const time = tmp.toLocaleTimeString().length === 10 ? tmp.toLocaleTimeString().slice(0, 7) : tmp.toLocaleTimeString().slice(0, 8);
         const date = tmp.toLocaleDateString() + ' ' + time;
-        newComment(isbn, data?.user, rate, userInput, date).then(res => {
-            if (res.data.success) {
-                setSnackMsg(res.data.message);
-                setShowSnackbar(true)
-                setComments(current => [...current, {
-                    email: data?.user.email || '',
-                    name: data?.user.name || '',
-                    image: data?.user.image || '',
-                    rate: rate,
-                    comment: userInput,
-                    date: date
-                }])
-                setRate(0);
-                setUserInput('');
-            }
-            else {
-                setSnackMsg(res.data.message);
-                setShowSnackbar(true);
-                setRate(0);
-                setUserInput('');
-            }
+        session && dispatch(create_new_comment({ isbn, email: session.user.email, name: session.user.name, image: session.user.image, rate: rate, comment: userInput, date: date })).then(() => {
+            activateSnack("댓글이 등록되었습니다", "success");
+            setRate(0);
+            setUserInput("");
         })
     }
 
-    useEffect(() => {
+    const checkRegistered = () => {
+        if (session) {
+            const result = comments.find(comment => comment.email === session.user.email);
+            let check;
+            result ? check = true : check = false;
+            return check;
+        }
+    }
 
-    })
+    useEffect(() => {
+        dispatch(get_comments(isbn));
+    }, [session]);
 
     return (
         <BoardWrapper id="userBoard">
-            <h2><FcVoicePresentation className='commentIcon' /> 의견 게시판</h2>
+            {commentsLoading ? (
+                <LoadingBox>
+                    <CircularProgress />
+                </LoadingBox>
+            ) : (
+                <Fragment>
+                    <h2><FcVoicePresentation className='commentIcon' /> 의견 게시판</h2>
 
-            <div className="inputWrapper">
-                <div className="inputField">
-                    <div className="rating">
-                        <Avatar src={data?.user?.image} sx={{ width: 56, height: 56 }} />
-                        <Rating precision={0.5} value={rate} readOnly={status === 'unauthenticated' ? true : false}
-                            onChange={(event, newValue) => {
-                                setRate(newValue);
-                            }} />
+                    <div className="inputWrapper">
+                        <div className="inputField">
+                            <div className="rating">
+                                <Avatar src={session?.user?.image} sx={{ width: 56, height: 56 }} />
+                                <Rating precision={0.5} value={rate} readOnly={status === 'unauthenticated' ? true : false}
+                                    onChange={(event, newValue) => {
+                                        newValue && setRate(newValue);
+                                    }} />
+                            </div>
+                            <TextField
+                                className="textField"
+                                multiline
+                                fullWidth
+                                color="info"
+                                label={status === 'authenticated' ? `${session.user.name}님의 의견을 남겨보세요 😄` : '로그인 후 의견을 남겨보세요!'}
+                                disabled={(status === 'unauthenticated' || checkRegistered()) ? true : false}
+                                minRows={4}
+                                value={userInput} onChange={(e) => setUserInput(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="submitBtn">
+                            <Button className="submitBtn" variant="contained" fullWidth
+                                disabled={(status === 'unauthenticated' || checkRegistered()) ? true : false} onClick={submitComment} >
+                                <MdSend size={24} />
+                            </Button>
+                        </div>
                     </div>
-                    <TextField
-                        className="textField"
-                        multiline
-                        fullWidth
-                        color="info"
-                        label={status === 'authenticated' ? `${data.user.name}님의 의견을 남겨보세요 😄` : '로그인 후 의견을 남겨보세요!'}
-                        disabled={status === 'unauthenticated' ? true : false}
-                        minRows={4}
-                        value={userInput} onChange={handleInputChange}
-                    />
-                </div>
 
-                <div className="submitBtn">
-                    <Button className="submitBtn" variant="contained" fullWidth
-                        disabled={status === 'unauthenticated' ? true : false} onClick={submitComment} >
-                        <MdSend size={24} />
-                    </Button>
-                </div>
-            </div>
+                    {comments.length > 0 ? (<Comments comments={comments} />) : (
+                        <EmptyBox>
+                            <FaSadCry size={100} />
+                            <p>등록된 댓글이 없습니다</p>
+                        </EmptyBox>
+                    )}
 
-            <Comments isbn={isbn} comments={comments} setComments={setComments} user={data?.user} />
-            <SnackAlert open={showSnackbar} setOpen={setShowSnackbar} message={snackMsg} />
+                </Fragment>
+            )}
         </BoardWrapper>
     );
 }
+
+export default memo(Board);

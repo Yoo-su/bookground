@@ -2,9 +2,9 @@ import React, { useState, memo } from 'react'
 import { Wrapper } from './styles';
 import { HiOutlineDocumentSearch } from 'react-icons/hi';
 import { useRouter } from 'next/router'
-import { BookType } from "types/bookType"
+import { BookType } from "types"
 
-function Book({ title, image, author, publisher, pubdate, isbn, description }: BookType) {
+function Book({ title, image, author, discount, publisher, pubdate, isbn, description }: BookType) {
   const [hovered, setHovered] = useState(false);
 
   const router = useRouter();

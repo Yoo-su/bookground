@@ -1,24 +1,30 @@
-import { useState, useEffect, useCallback } from 'react';
 import { Oval } from 'react-loader-spinner'
 import SearchInput from 'components/SearchInput';
 import Book from 'components/Book';
-import Pagination from 'components/common/Pagination';
+import { useAppSelector, useAppDispatch } from 'store/hook';
+import Divider from "@mui/material/Divider";
+import Box from "@mui/material/Box";
+import Paginator from 'components/Paginator';
+import usePagination from 'hooks/usePagination';
+import { get_newPage_books } from 'store/asyncThunks';
 import styled from 'styled-components';
-import { BookType } from 'types/bookType';
+import { BookType } from 'types';
 
-const Wrapper = styled.div`
+const Wrapper = styled(Box)`
   display:flex;
   flex-direction:column;
   align-items:center;
   margin-top:10rem;
+  
 `;
 
-const BookContainer = styled.div`
+const BookContainer = styled(Box)`
     display:flex;
     flex-direction:column;
     justify-content:center;
     flex-wrap:wrap;
     margin-top:5rem;
+    width:100%;
 
     .resultCount{
       box-shadow:0 1px 1px rgba(0,0,0,0.2);
@@ -45,43 +51,47 @@ const BookContainer = styled.div`
     }
 `;
 
+const LoadingBox = styled(Box)`
+  display:grid;
+  justify-content: center;
+  margin:5rem 0;
+`;
+
 export default function Home() {
-  const [books, setBooks] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const { loading, searchQuery, books, total } = useAppSelector(state => state.books);
+  const dispatch = useAppDispatch();
 
-  //페이징 변수
-  const [limit, setLimit] = useState(20);
-  const [page, setPage] = useState(1);
-  const offset = (page - 1) * limit;
-
-  const setBooksFunc = useCallback((books: any) => {
-    setBooks(books);
-  }, []);
+  const {
+    currentPage, setCurrentPage, pageCount,
+  } = usePagination(100, total);
 
   return (
     <Wrapper>
-      <SearchInput setBooks={setBooksFunc} setLoading={setIsLoading} />
+      <SearchInput />
 
       <BookContainer>
-        {books.length > 0 && (
-          <div className='resultCount'>
-            <b>{books.length}개의 검색 결과</b>
-          </div>
+        {total > 0 && (
+          <Divider textAlign='left'>{total}개의 검색결과</Divider>
         )}
-        {isLoading === true && <Oval color="#00BFFF" secondaryColor='grey' height={120} width={120} strokeWidth={4} />}
+        {loading ?
+          <LoadingBox>
+            <Oval color="#00BFFF" secondaryColor='grey' height={120} width={120} strokeWidth={4} />
+          </LoadingBox> :
+          total > 0 ? <div className="books">
+            {books.map((book: BookType) => (
+              <Book {...book} key={book.isbn} />
+            ))}
+          </div> : <></>}
 
-        <div className="books">
-          {books.slice(offset, offset + limit).map((book: BookType) => (
-            <Book {...book} key={book.isbn} />
-          ))}
-        </div>
-        {books.length>0 && <Pagination 
-                total={books.length}
-                limit={limit}
-                page={page}
-                setPage={setPage}
-          />}
+
       </BookContainer>
+
+      {total > 0 && (
+        <Paginator pageCount={pageCount} onPageChange={(_, newPage) => {
+          setCurrentPage(newPage);
+          dispatch(get_newPage_books({ query: searchQuery, start: newPage * 100 }))
+        }} currentPage={currentPage} />
+      )}
 
     </Wrapper>
   )
