@@ -17,7 +17,7 @@ function Book({ title, image, author, discount, publisher, pubdate, isbn, descri
         <label>저자: {author}</label>
       </div>
 
-      <Link href={`/BookDetail/${isbn}`}>
+      <Link href="/BookDetail/[id]" as={`/BookDetail/${isbn}`}>
         <button className='toDetailBtn'>
           <HiOutlineDocumentSearch className='toDetailIcon' />
           <label>상세보기</label>
