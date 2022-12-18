@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { BookWrapper } from './styles';
-import { Oval } from 'react-loader-spinner'
+import CircularProgress from "@mui/material/CircularProgress"
 import Chip from '@mui/material/Chip';
 import Rating from '@mui/material/Rating';
 import Fab from '@mui/material/Fab';
@@ -85,7 +85,7 @@ export default function BookInfo({ isbn }: Prop) {
     return (
         <BookWrapper>
             {loading ?
-                <Oval color="#00BFFF" secondaryColor='grey' height={120} width={120} strokeWidth={4} /> :
+                <CircularProgress size={150} /> :
                 bookDetail &&
                 <>
                     <div className="imgBox">

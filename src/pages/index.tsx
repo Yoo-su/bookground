@@ -1,4 +1,4 @@
-import { Oval } from 'react-loader-spinner'
+import CircularProgress from "@mui/material/CircularProgress"
 import SearchInput from 'components/SearchInput';
 import Book from 'components/Book';
 import { useAppSelector, useAppDispatch } from 'store/hook';
@@ -75,7 +75,7 @@ export default function Home() {
         )}
         {loading ?
           <LoadingBox>
-            <Oval color="#00BFFF" secondaryColor='grey' height={120} width={120} strokeWidth={4} />
+            <CircularProgress size={150} />
           </LoadingBox> :
           total > 0 ? <div className="books">
             {books.map((book: BookType) => (
