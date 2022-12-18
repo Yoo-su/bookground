@@ -1,65 +1,22 @@
+import { useRef } from "react";
 import CircularProgress from "@mui/material/CircularProgress"
 import SearchInput from 'components/SearchInput';
 import Book from 'components/Book';
 import { useAppSelector, useAppDispatch } from 'store/hook';
+import Fab from "@mui/material/Fab";
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import Divider from "@mui/material/Divider";
-import Box from "@mui/material/Box";
 import Paginator from 'components/Paginator';
 import usePagination from 'hooks/usePagination';
 import { get_newPage_books } from 'store/asyncThunks';
-import styled from 'styled-components';
+import { Wrapper, BookContainer, LoadingBox, FabBox } from "./styles";
 import { BookType } from 'types';
-
-const Wrapper = styled(Box)`
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  margin-top:10rem;
-  
-`;
-
-const BookContainer = styled(Box)`
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    flex-wrap:wrap;
-    margin-top:5rem;
-    width:100%;
-
-    .resultCount{
-      box-shadow:0 1px 1px rgba(0,0,0,0.2);
-      
-      b{
-        margin-left:150px;
-        font-family: 'IBM Plex Sans KR', sans-serif;
-
-        @media all and (min-width:0px) and (max-width:1023px){
-          margin-left:1.5rem;
-        }
-      }
-    }
-    
-    .books{
-      display:flex;
-      justify-content:center;
-      flex-wrap:wrap;
-      padding:0 50px;
-
-      @media all and (min-width:0px) and (max-width:1023px){
-        padding:0.5rem 0.1rem;
-      }
-    }
-`;
-
-const LoadingBox = styled(Box)`
-  display:grid;
-  justify-content: center;
-  margin:5rem 0;
-`;
 
 export default function Home() {
   const { loading, searchQuery, books, total } = useAppSelector(state => state.books);
   const dispatch = useAppDispatch();
+  const bookContainerRef = useRef<HTMLDivElement>(null);
 
   const {
     currentPage, setCurrentPage, pageCount,
@@ -69,7 +26,7 @@ export default function Home() {
     <Wrapper>
       <SearchInput />
 
-      <BookContainer>
+      <BookContainer ref={bookContainerRef}>
         {total > 0 && (
           <Divider textAlign='left'>{total}개의 검색결과</Divider>
         )}
@@ -82,8 +39,6 @@ export default function Home() {
               <Book {...book} key={book.isbn} />
             ))}
           </div> : <></>}
-
-
       </BookContainer>
 
       {total > 0 && (
@@ -93,6 +48,27 @@ export default function Home() {
         }} currentPage={currentPage} />
       )}
 
+
+      {books.length > 30 && (
+        <FabBox>
+          <Fab color="primary" onClick={() => {
+            if (bookContainerRef) {
+              window.scrollTo({ top: bookContainerRef?.current?.offsetTop, behavior: 'smooth' });
+            }
+          }}>
+            <ArrowDropUpIcon />
+          </Fab>
+
+          <Fab color="primary" onClick={() => {
+            if (bookContainerRef) {
+              const offsetBottom = (bookContainerRef?.current?.offsetTop || 0) + (bookContainerRef?.current?.offsetHeight || 0);
+              window.scrollTo({ top: offsetBottom, behavior: 'smooth' });
+            }
+          }}>
+            <ArrowDropDownIcon />
+          </Fab>
+        </FabBox>
+      )}
     </Wrapper>
   )
 }
