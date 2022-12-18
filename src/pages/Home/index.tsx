@@ -44,7 +44,7 @@ export default function Home() {
       {total > 0 && (
         <Paginator pageCount={pageCount} onPageChange={(_, newPage) => {
           setCurrentPage(newPage);
-          dispatch(get_newPage_books({ query: searchQuery, start: newPage * 100 }))
+          dispatch(get_newPage_books({ query: searchQuery, start: (newPage - 1) * 100 + 1 }))
         }} currentPage={currentPage} />
       )}
 
