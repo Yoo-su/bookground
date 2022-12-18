@@ -10,7 +10,7 @@ import Divider from "@mui/material/Divider";
 import Paginator from 'components/Paginator';
 import usePagination from 'hooks/usePagination';
 import { get_newPage_books } from 'store/asyncThunks';
-import { Wrapper, BookContainer, LoadingBox, FabBox } from "./styles";
+import { Wrapper, BookContainer, LoadingBox, FabBox } from "styles/pages/Home";
 import { BookType } from 'types';
 
 export default function Home() {
