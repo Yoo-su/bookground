@@ -1,13 +1,11 @@
-import React, { useState, memo } from 'react'
+import { useState, memo } from 'react'
 import { Wrapper } from './styles';
 import { HiOutlineDocumentSearch } from 'react-icons/hi';
-import { useRouter } from 'next/router'
+import Link from "next/link";
 import { BookType } from "types"
 
 function Book({ title, image, author, discount, publisher, pubdate, isbn, description }: BookType) {
   const [hovered, setHovered] = useState(false);
-
-  const router = useRouter();
 
   return (
     <Wrapper onMouseEnter={() => { setHovered(true) }} onMouseLeave={() => { setHovered(false) }} hovered={hovered}>
@@ -19,15 +17,12 @@ function Book({ title, image, author, discount, publisher, pubdate, isbn, descri
         <label>저자: {author}</label>
       </div>
 
-      <button className='toDetailBtn' onClick={() => {
-        router.push({
-          pathname: `/BookDetail/${isbn}`,
-          query: { isbn },
-        })
-      }}>
-        <HiOutlineDocumentSearch className='toDetailIcon' />
-        <label>상세보기</label>
-      </button>
+      <Link href={`/BookDetail/${isbn}`}>
+        <button className='toDetailBtn'>
+          <HiOutlineDocumentSearch className='toDetailIcon' />
+          <label>상세보기</label>
+        </button>
+      </Link>
     </Wrapper>
   )
 }
