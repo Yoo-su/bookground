@@ -21,59 +21,64 @@ export default function BookInfo({ isbn }: Prop) {
     const dispatch = useAppDispatch();
     const { activateSnack } = useSnack();
 
-    //good 버튼 클릭처리
+    // good 버튼 클릭처리
     const handleUpClick = () => {
         if (session === null) {
             activateSnack("로그인 후 이용 가능합니다", "info");
             return;
         }
-
+        console.log(session.user.email)
+        // 기존에 bad버튼이 눌려 있던 경우
         if (userThumb === false) {
-            dispatch(update_book_reputation({ isbn, curUser: session.user.email, thumb: true }));
+            dispatch(update_book_reputation({ isbn, curUser: session.user, thumb: true }));
             dispatch(setUserThumb(true));
             dispatch(setBookDownCnt(downCnt - 1));
             dispatch(setBookUpCnt(upCnt + 1));
         }
+        // 기존에 good 버튼이 눌려 있던 경우
         else if (userThumb === true) {
-            dispatch(update_book_reputation({ isbn, curUser: session.user.email, thumb: null }));
+            dispatch(update_book_reputation({ isbn, curUser: session.user, thumb: null }));
             dispatch(setUserThumb(null));
             dispatch(setBookUpCnt(upCnt - 1));
         }
+        // 아무 버튼도 눌려있지 않던 경우
         else if (userThumb === null) {
-            dispatch(update_book_reputation({ isbn, curUser: session.user.email, thumb: true }));
+            dispatch(update_book_reputation({ isbn, curUser: session.user, thumb: true }));
             dispatch(setUserThumb(true));
             dispatch(setBookUpCnt(upCnt + 1));
         }
 
     }
 
-    //bad 버튼 클릭 처리
+    // bad 버튼 클릭 처리
     const handleDownClick = () => {
         if (session === null) {
             activateSnack("로그인 후 이용 가능합니다", "info");
             return;
         }
-
-        //good 버튼이 눌려져 있던 상태면
+        console.log(session.user.email)
+        // 기존에 good 버튼이 눌려 있던 경우
         if (userThumb === true) {
-            dispatch(update_book_reputation({ isbn, curUser: session.user.email, thumb: false }));
+            dispatch(update_book_reputation({ isbn, curUser: session.user, thumb: false }));
             dispatch(setUserThumb(false));
             dispatch(setBookDownCnt(downCnt + 1));
             dispatch(setBookUpCnt(upCnt - 1));
         }
+        // 기존에 bad 버튼이 눌려 있던 경우
         else if (userThumb === false) {
-            dispatch(update_book_reputation({ isbn, curUser: session.user.email, thumb: null }));
+            dispatch(update_book_reputation({ isbn, curUser: session.user, thumb: null }));
             dispatch(setUserThumb(null));
             dispatch(setBookDownCnt(downCnt - 1));
         }
+        // 아무 버튼도 눌려있지 않던 경우
         else if (userThumb === null) {
-            dispatch(update_book_reputation({ isbn, curUser: session.user.email, thumb: false }));
+            dispatch(update_book_reputation({ isbn, curUser: session.user, thumb: false }));
             dispatch(setUserThumb(false));
             dispatch(setBookDownCnt(downCnt + 1));
         }
     }
 
-    //게시판으로 스크롤
+    // 의견 게시판으로 스크롤
     const scrollToBoard = () => {
         document.getElementById("userBoard")?.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }

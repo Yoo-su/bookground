@@ -12,7 +12,7 @@ export default async function handler(
         const bookRep = db.collection("bookRep");
 
         //유저의 기존 책 평가 정보가 있는지 확인
-        const rep = await bookRep.find({ isbn: isbn, email: curUser }).toArray();
+        const rep = await bookRep.find({ isbn: isbn, email: curUser.email }).toArray();
         if (rep.length === 0) {
             const result = await bookRep.insertOne({
                 email: curUser.email,
@@ -26,7 +26,7 @@ export default async function handler(
         }
         else {
             const result = await bookRep.findOneAndUpdate({
-                isbn: isbn, email: curUser
+                isbn: isbn, email: curUser.email
             }, {
                 $set: { thumb: thumb }
             })

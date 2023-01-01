@@ -85,7 +85,11 @@ export interface GetBookParam {
 
 export interface UpdateBookRepParam {
     isbn: string;
-    curUser: string;
+    curUser: {
+        email: string,
+        name: string,
+        image: string,
+    };
     thumb: boolean | null;
 }
 
