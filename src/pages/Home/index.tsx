@@ -22,6 +22,27 @@ export default function Home() {
     currentPage, setCurrentPage, pageCount,
   } = usePagination(100, total);
 
+  // 새 페이지 클릭 처리
+  const handleNewPageClick = (newPage: number) => {
+    setCurrentPage(newPage);
+    dispatch(get_newPage_books({ query: searchQuery, start: (newPage - 1) * 100 + 1 }))
+  }
+
+  // up 스크롤 버튼 클릭 처리
+  const handleUpScrollBtnClick = () => {
+    if (bookContainerRef) {
+      window.scrollTo({ top: bookContainerRef?.current?.offsetTop, behavior: 'smooth' });
+    }
+  }
+
+  // down 스크롤 버튼 클릭 처리
+  const handleDownScrollBtnClick = () => {
+    if (bookContainerRef) {
+      const offsetBottom = (bookContainerRef?.current?.offsetTop || 0) + (bookContainerRef?.current?.offsetHeight || 0);
+      window.scrollTo({ top: offsetBottom, behavior: 'smooth' });
+    }
+  }
+
   return (
     <Wrapper>
       <SearchInput />
@@ -42,29 +63,22 @@ export default function Home() {
       </BookContainer>
 
       {total > 0 && (
-        <Paginator pageCount={pageCount} onPageChange={(_, newPage) => {
-          setCurrentPage(newPage);
-          dispatch(get_newPage_books({ query: searchQuery, start: (newPage - 1) * 100 + 1 }))
-        }} currentPage={currentPage} />
+        <Paginator
+          pageCount={pageCount}
+          onPageChange={(_, newPage) => {
+            handleNewPageClick(newPage);
+          }}
+          currentPage={currentPage} />
       )}
 
 
       {books.length > 30 && (
         <FabBox>
-          <Fab color="primary" onClick={() => {
-            if (bookContainerRef) {
-              window.scrollTo({ top: bookContainerRef?.current?.offsetTop, behavior: 'smooth' });
-            }
-          }}>
+          <Fab color="primary" onClick={handleUpScrollBtnClick}>
             <ArrowDropUpIcon />
           </Fab>
 
-          <Fab color="primary" onClick={() => {
-            if (bookContainerRef) {
-              const offsetBottom = (bookContainerRef?.current?.offsetTop || 0) + (bookContainerRef?.current?.offsetHeight || 0);
-              window.scrollTo({ top: offsetBottom, behavior: 'smooth' });
-            }
-          }}>
+          <Fab color="primary" onClick={handleDownScrollBtnClick}>
             <ArrowDropDownIcon />
           </Fab>
         </FabBox>
