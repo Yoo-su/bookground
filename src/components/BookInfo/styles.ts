@@ -129,7 +129,7 @@ export const BookWrapper = styled.div`
         
         .desc{
             font-size:18px;
-            
+            line-height: 1.5rem;
         }
 
         @media all and (min-width:0px) and (max-width:1023px){
