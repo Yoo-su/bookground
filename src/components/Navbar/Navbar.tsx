@@ -3,6 +3,7 @@ import { FcReadingEbook } from 'react-icons/fc';
 import { Wrapper, LoginBtn } from './styles';
 import { FcGoogle } from 'react-icons/fc';
 import LoginUserChip from './/LoginUserChip';
+import ModeSwitch from './ModeSwitch';
 import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
 
@@ -38,6 +39,8 @@ export default function Navbar() {
             </Link>
 
             <div className="navbar_right">
+                <ModeSwitch />
+
                 {status === 'unauthenticated' &&
                     <LoginBtn onClick={() => { signIn('google') }}>
                         <FcGoogle className='loginIcon' />

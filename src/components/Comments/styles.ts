@@ -18,6 +18,7 @@ export const Comment = styled.li<commentProps>`
    margin-bottom:1rem;
    background-color:${props => props.order === 0 ? 'rgba(0,0,0,0.1)' : props.order === 1 ?
         'rgba(34,140,34,0.1)' : props.order === 2 ? 'rgba(175,128,79,0.1)' : props.order === 3 ? 'rgba(85,170,255,0.1)' : 'rgba(255,210,52,0.1)'};
+        
    .left{
         display:grid;
         justify-content: center;
@@ -36,13 +37,13 @@ export const Comment = styled.li<commentProps>`
             display:flex;
             align-items:center;
             width:100%;
+            color:${props => props.theme.TEXT_COLOR};
 
             b{
                 margin-right:1rem;
             }
 
             label{
-                color:rgba(0,0,0,0.4);
                 margin-left:0.5rem;
             }
 
@@ -50,7 +51,6 @@ export const Comment = styled.li<commentProps>`
                 display:${props => props.master === false && 'none'};
                 margin-left:auto;
                 cursor:pointer;
-                color:rgba(0,0,0,0.6);
                 transition:color 0.3s linear;
 
                 :hover{
@@ -59,6 +59,7 @@ export const Comment = styled.li<commentProps>`
             }
         }
         .text{
+            color:${props => props.theme.TEXT_COLOR};
             display:flex;
             flex:1;
         }

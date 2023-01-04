@@ -6,9 +6,9 @@ export const Wrapper = styled(Box)`
   display:flex;
   flex-direction:column;
   align-items:center;
-  margin-top:10rem;
-  height:100%;
-  
+  padding-top:10rem;
+  min-height:100vh;
+  background-color: ${props => props.theme.BG_COLOR};
 `;
 
 export const BookContainer = styled(Box)`
@@ -19,17 +19,9 @@ export const BookContainer = styled(Box)`
     margin-top:5rem;
     width:100%;
 
-    .resultCount{
-      box-shadow:0 1px 1px rgba(0,0,0,0.2);
-      
-      b{
-        margin-left:150px;
-        font-family: 'IBM Plex Sans KR', sans-serif;
-
-        @media all and (min-width:0px) and (max-width:1023px){
-          margin-left:1.5rem;
-        }
-      }
+    .MuiDivider-root{
+      color:${props => props.theme.TEXT_COLOR};
+      border-color: ${props => props.theme.TEXT_COLOR};
     }
     
     .books{

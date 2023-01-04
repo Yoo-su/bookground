@@ -16,10 +16,11 @@ export const BoardWrapper = styled(Box)`
 
     h2 {
         display:flex;
+        color:${props => props.theme.TEXT_COLOR};
         align-items:center;
         line-height:1rem;
         width:100%;
-        border-bottom:1px solid rgba(0,0,0,0.3);
+        border-bottom:1px solid ${props => props.theme.BORDER_COLOR};
 
         .commentIcon{
             width:2rem;
@@ -47,7 +48,7 @@ export const BoardWrapper = styled(Box)`
         
         .inputField{
             display:flex;
-            align-items:center;
+            align-items:stretch;
             width:80%;
             
             .rating{
@@ -56,9 +57,21 @@ export const BoardWrapper = styled(Box)`
                 align-items:center;
                 justify-content:center;
                 margin-right:2rem;
+                border-radius: 10px;
+                padding:0 0.5rem;
+                background-color: ${props => props.theme.RATING_BG_COLOR};
 
                 .MuiAvatar-root{
                     margin-bottom:1rem;
+                }
+            }
+
+            .textField{
+                label{
+                    color:${props => props.theme.PLACEHOLDER_COLOR};
+                }
+                textarea:enabled {
+                    color:${props => props.theme.TEXT_COLOR};
                 }
             }
 
@@ -119,4 +132,5 @@ export const EmptyBox = styled(Box)`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color:${props => props.theme.TEXT_COLOR};
 `;
