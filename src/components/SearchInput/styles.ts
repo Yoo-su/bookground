@@ -7,10 +7,11 @@ padding:1.5rem;
 border-radius:3rem;
 box-shadow:0 5px 10px rgba(0,0,0,0.3);
 outline:none;
-border:none;
+border:${props => props.theme.SEARCHBOX_BORDER_COLOR};
 width:40%;
 height:3rem;
 transition:transform 0.1s linear;
+background-color: ${props => props.theme.SEARCHBOX_BG_COLOR};
 
 :focus{
     transform:scale(1.1);
@@ -30,6 +31,12 @@ export const CustomInput = styled.input`
     flex:1;
     font-size:1.5rem;
     font-family: 'Do Hyeon', sans-serif;
+    color:${props => props.theme.TEXT_COLOR};
+    background-color: ${props => props.theme.SEARCHBOX_BG_COLOR};
+
+    ::placeholder{
+        color:${props => props.theme.PLACEHOLDER_COLOR};
+    }
 
     @media all and (min-width:0px) and (max-width:540px){
         font-size:16px;
@@ -45,7 +52,7 @@ export const SearchBtn = styled.button`
     padding:0.5rem;
     cursor:pointer;
     border-radius:50%;
-    background:linear-gradient(to bottom, #6CA0DC, #e39ff6);
+    background:${props => props.theme.SEARCHBTN_BG_COLOR};
     margin-left:auto;
     
     :active{

@@ -2,10 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import {
     get_books_by_query,
     get_newPage_books, get_bookInfo_by_isbn,
-    update_book_reputation,
     get_comments,
     create_new_comment,
-    delete_comment
 } from "store/asyncThunks";
 import { BookType, CommentType } from "types";
 import xml2js from "xml2js";

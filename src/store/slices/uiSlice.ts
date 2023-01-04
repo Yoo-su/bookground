@@ -5,7 +5,7 @@ import { UiSliceType, SnackPayload } from "types";
 const initialState: UiSliceType = {
     openSnack: false,
     snackMessage: "",
-    snackType: "success"
+    snackType: "success",
 }
 
 const uiSlice = createSlice({
@@ -20,7 +20,7 @@ const uiSlice = createSlice({
             const { message, type } = action.payload;
             state.snackMessage = message;
             state.snackType = type;
-        }
+        },
     }
 })
 

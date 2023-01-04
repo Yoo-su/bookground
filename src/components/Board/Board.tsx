@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment, memo } from 'react';
+import { useState, useEffect, Fragment, memo, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
 import Comments from 'components/Comments';
 import { BoardWrapper, LoadingBox, EmptyBox } from './styles';
@@ -53,6 +53,8 @@ const Board = ({ isbn }: Prop) => {
         }
     }
 
+    const registered = useMemo(() => checkRegistered(), [comments]);
+
     useEffect(() => {
         dispatch(get_comments(isbn));
     }, [session]);
@@ -71,7 +73,7 @@ const Board = ({ isbn }: Prop) => {
                         <div className="inputField">
                             <div className="rating">
                                 <Avatar src={session?.user?.image} sx={{ width: 56, height: 56 }} />
-                                <Rating precision={0.5} value={rate} readOnly={status === 'unauthenticated' ? true : false}
+                                <Rating precision={0.5} value={rate} readOnly={(status === 'unauthenticated' || registered) ? true : false}
                                     onChange={(event, newValue) => {
                                         newValue && setRate(newValue);
                                     }} />
@@ -81,8 +83,8 @@ const Board = ({ isbn }: Prop) => {
                                 multiline
                                 fullWidth
                                 color="info"
-                                label={status === 'authenticated' ? `${session.user.name}님의 의견을 남겨보세요 😄` : '로그인 후 의견을 남겨보세요!'}
-                                disabled={(status === 'unauthenticated' || checkRegistered()) ? true : false}
+                                label={status === 'authenticated' ? registered ? "이미 의견을 등록하셨어요 :)" : `${session.user.name}님의 의견을 남겨보세요 😄` : '로그인 후 의견을 남겨보세요!'}
+                                disabled={(status === 'unauthenticated' || registered) ? true : false}
                                 minRows={4}
                                 value={userInput} onChange={(e) => setUserInput(e.target.value)}
                             />
@@ -90,7 +92,7 @@ const Board = ({ isbn }: Prop) => {
 
                         <div className="submitBtn">
                             <Button className="submitBtn" variant="contained" fullWidth
-                                disabled={(status === 'unauthenticated' || checkRegistered()) ? true : false} onClick={submitComment} >
+                                disabled={(status === 'unauthenticated' || registered) ? true : false} onClick={submitComment} >
                                 <MdSend size={24} />
                             </Button>
                         </div>

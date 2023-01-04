@@ -49,30 +49,32 @@ export const BookWrapper = styled.div`
         position:relative;
 
         .backPattern1{
-            background-color:#CDCDCD;
+            background-color:${props => props.theme.PATTERN1_COLOR};
             position:absolute;
             width:60%;
             height:60%;
             top:-10%;
             right:-11%;
             border-radius:0 15px 0 0;
-            z-index:-10;
+            z-index:1;
         }
 
         .backPattern2{
-            background-color:#5F6D7A;
+            background-color:${props => props.theme.PATTERN2_COLOR};
             position:absolute;
             width:80%;
             height:22%;
             bottom:-5%;
             left:-9%;
             border-radius:0 0 0 10px;
-            z-index:-10;
+            z-index:1;
         }
         img{
+            position: relative;
             width:100%;
             object-fit:cover;
             box-shadow:5px 5px 12px rgba(0,0,0,0.3);
+            z-index: 3;
         }
     }
     
@@ -83,6 +85,7 @@ export const BookWrapper = styled.div`
         max-width:60%;
         font-family: 'Nanum Myeongjo', serif;
         margin-left:8rem;
+        color:${props => props.theme.TEXT_COLOR};
 
         .reputation{
             display:flex;
@@ -99,6 +102,9 @@ export const BookWrapper = styled.div`
                 display:flex;
                 align-items:center;
                 margin:0.5rem 0;
+                padding:0.1rem 0.3rem;
+                border-radius: 5px;
+                background-color: ${props => props.theme.RATING_BG_COLOR};
                 i{
                     color:rgba(0,0,0,0.3);
                     margin-left:0.2rem;
@@ -119,7 +125,6 @@ export const BookWrapper = styled.div`
                 display:flex;
                 justify-content:flex-end;
                 flex:1;
-                color:rgba(0,0,0,0.65);
                 .pubdate{
                     margin-left:1rem;
                 }

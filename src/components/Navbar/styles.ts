@@ -15,7 +15,7 @@ export const Wrapper = styled.nav<wrapperProps>`
     width:100%;
     top:0; 
     z-index:90;
-    background:${props => props.isTop === true ? 'rgba(188,158,130,1)' : 'rgba(188,158,130,0.7)'};
+    background:${props => props.isTop === true ? props.theme.NAVBAR_BG_COLOR : props.theme.NAVBAR_SCROLL_BG_COLOR};
     height:${props => props.isTop === true ? '4.5rem' : '2.5rem'};
     transition:height 0.1s linear;
     
@@ -33,11 +33,11 @@ export const Wrapper = styled.nav<wrapperProps>`
             }
 
             & :nth-child(2){
-                color:#495e35;
+                color:${props => props.theme.LOGO1_COLOR};
             }
 
             & :nth-child(3){
-                color:#4b371c;
+                color:${props => props.theme.LOGO2_COLOR};
             }
         }
 
@@ -51,7 +51,16 @@ export const Wrapper = styled.nav<wrapperProps>`
         margin-right:60px;
         flex:1;
         display:flex;
+        align-items: center;
         justify-content:flex-end;
+
+        .switchBox{
+            margin-right:0.5rem;
+        }
+
+        .MuiChip-label{
+            color:${props => props.theme.TEXT_COLOR};
+        }        
     }
 
     @media all and (min-width:0px) and (max-width:1023px){
@@ -101,5 +110,4 @@ export const LoginBtn = styled.button`
         height:1.2rem;
         margin-right:0.5rem;
     }
-
 `;

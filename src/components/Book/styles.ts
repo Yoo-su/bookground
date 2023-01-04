@@ -16,7 +16,8 @@ export const Wrapper = styled.div<propsType>`
     font-family: 'IBM Plex Sans KR', sans-serif;
     box-shadow:0 1px 5px rgba(0,0,0,0.3);
     border-radius:0.5rem;
-    background:rgba(250,253,246,1);
+    background-color:${props => props.theme.BOOK_BG_COLOR};
+    color:${props => props.theme.TEXT_COLOR};
     overflow:hidden;
     
     .bookCover, .bookInfo{

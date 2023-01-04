@@ -6,11 +6,12 @@ import { useRouter } from "next/router"
 const Wrapper = styled.div`
     display:flex;
     flex-direction:column;
-    padding:2rem 5rem;
-    margin-top:9rem;
+    padding:12rem 5rem 0 5rem;
+    min-height:100vh;
+    background-color: ${props => props.theme.BG_COLOR};
 
     @media all and (min-width:0px) and (max-width:1023px){
-        padding:0;
+        padding:8rem 0 0 0;
         justify-content:center;
         overflow:hidden;
     }

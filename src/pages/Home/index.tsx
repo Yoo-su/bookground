@@ -10,7 +10,7 @@ import Divider from "@mui/material/Divider";
 import Paginator from 'components/Paginator';
 import usePagination from 'hooks/usePagination';
 import { get_newPage_books } from 'store/asyncThunks';
-import { Wrapper, BookContainer, LoadingBox, FabBox } from "styles/pages/Home";
+import { Wrapper, BookContainer, LoadingBox, FabBox } from "styles/pages/home";
 import { BookType } from 'types';
 
 export default function Home() {
@@ -49,7 +49,7 @@ export default function Home() {
 
       <BookContainer ref={bookContainerRef}>
         {total > 0 && (
-          <Divider textAlign='left'>{total}개의 검색결과</Divider>
+          <Divider className="divider" textAlign='left'>{total}개의 검색결과</Divider>
         )}
         {loading ?
           <LoadingBox>
