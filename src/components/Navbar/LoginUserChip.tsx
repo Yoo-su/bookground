@@ -10,10 +10,11 @@ import { signOut } from 'next-auth/react';
 export default function LoginUserChip({ profileImg, name }: LoginUserChipProp) {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const handleClick = (event: MouseEvent<HTMLElement>) => {
+
+    const handleChipClick = (event: MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
+    const handleMenuClose = () => {
         setAnchorEl(null);
     };
 
@@ -23,13 +24,13 @@ export default function LoginUserChip({ profileImg, name }: LoginUserChipProp) {
                 avatar={<Avatar alt="profile" src={profileImg} />}
                 label={name}
                 clickable
-                onClick={handleClick}
+                onClick={handleChipClick}
             />
             <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={open}
-                onClose={handleClose}
+                onClose={handleMenuClose}
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}

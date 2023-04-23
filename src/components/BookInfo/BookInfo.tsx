@@ -22,12 +22,12 @@ export default function BookInfo({ isbn }: Prop) {
     const { activateSnack } = useSnack();
 
     // good 버튼 클릭처리
-    const handleUpClick = () => {
+    const handleGoodBtnClick = () => {
         if (session === null) {
             activateSnack("로그인 후 이용 가능합니다", "info");
             return;
         }
-        console.log(session.user.email)
+
         // 기존에 bad버튼이 눌려 있던 경우
         if (userThumb === false) {
             dispatch(update_book_reputation({ isbn, curUser: session.user, thumb: true }));
@@ -51,12 +51,12 @@ export default function BookInfo({ isbn }: Prop) {
     }
 
     // bad 버튼 클릭 처리
-    const handleDownClick = () => {
+    const handleBadBtnClick = () => {
         if (session === null) {
             activateSnack("로그인 후 이용 가능합니다", "info");
             return;
         }
-        console.log(session.user.email)
+
         // 기존에 good 버튼이 눌려 있던 경우
         if (userThumb === true) {
             dispatch(update_book_reputation({ isbn, curUser: session.user, thumb: false }));
@@ -103,9 +103,9 @@ export default function BookInfo({ isbn }: Prop) {
                         <div className="reputation">
                             <div className="chips">
                                 <Chip className="thumbUp" icon={<BsHandThumbsUp />} label={upCnt}
-                                    color="primary" variant={userThumb === true ? 'filled' : 'outlined'} clickable onClick={handleUpClick} />
+                                    color="primary" variant={userThumb === true ? 'filled' : 'outlined'} clickable onClick={handleGoodBtnClick} />
                                 <Chip className="thumbDown" icon={<BsHandThumbsDown />} label={downCnt}
-                                    color="primary" variant={userThumb === false ? 'filled' : 'outlined'} clickable onClick={handleDownClick} />
+                                    color="primary" variant={userThumb === false ? 'filled' : 'outlined'} clickable onClick={handleBadBtnClick} />
                             </div>
                             <div className="star">
                                 <Rating

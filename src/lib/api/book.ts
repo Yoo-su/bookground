@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { CreateCommentType, DeleteCommentType, GetBookParam, UpdateBookRepParam } from "types";
+import { CreateCommentType, GetBookParam, UpdateBookRepParam } from "types";
 
 //검색어로 책 검색
 interface GetBooksParams {

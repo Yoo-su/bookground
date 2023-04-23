@@ -13,11 +13,11 @@ function SearchInput() {
 
   const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key == 'Enter') {
-      search(keyword);
+      searchBooks(keyword);
     }
   }
 
-  const search = (query: string) => {
+  const searchBooks = (query: string) => {
     if (!query) {
       activateSnack("입력된 검색어가 없습니다", "info");
       return;
@@ -37,7 +37,7 @@ function SearchInput() {
         value={keyword}
       />
       <SearchBtn onClick={() => {
-        search(keyword);
+        searchBooks(keyword);
       }}>
         <BsSearch className="searchIcon" />
       </SearchBtn>

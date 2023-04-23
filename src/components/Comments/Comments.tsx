@@ -2,10 +2,12 @@ import { useState, memo } from 'react';
 import Rating from '@mui/material/Rating';
 import Avatar from '@mui/material/Avatar';
 import { AiOutlineDelete } from 'react-icons/ai'
+import { useSession } from "next-auth/react";
+
 import Pagination from 'components/common/Pagination';
+
 import { CommentsList, Comment } from './styles';
 import { CommentType } from 'types';
-import { useSession } from "next-auth/react";
 import useSnack from 'hooks/useSnack';
 import { delete_comment } from 'store/asyncThunks';
 import { setComments } from "store/slices/bookSlice"
@@ -24,7 +26,7 @@ const Comments = ({ comments }: propsType) => {
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
 
-    const deleteComm = (_id: string) => {
+    const deleteComment = (_id: string) => {
         try {
             session && dispatch(delete_comment(_id)).then(() => {
                 dispatch(setComments(comments.filter(comment => comment._id !== _id)));
@@ -51,7 +53,7 @@ const Comments = ({ comments }: propsType) => {
                             <Rating defaultValue={comment.rate} readOnly precision={0.5} />
                             <label>{comment.date}</label>
                             <AiOutlineDelete className='deleteIcon' size={24} onClick={() => {
-                                deleteComm(comment._id);
+                                deleteComment(comment._id);
                             }} />
                         </div>
 
